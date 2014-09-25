@@ -1,7 +1,8 @@
 /*jslint devel: true, indent: 2 */
 /*global console */
-var isMoveOk = (function () {
+var kamisadoLogic = (function () {
   'use strict';
+
   //game board with the colors of each grid
   var gridColors = [
       [ 'OR', 'BL', 'PU', 'PI', 'YE', 'RE', 'GR', 'BR' ],
@@ -15,8 +16,40 @@ var isMoveOk = (function () {
     ];
 
   function isEqual(object1, object2) {
-    return JSON.stringify(object1) === JSON.stringify(object2);
-  }
+      if (object1 === object2) {
+        return true;
+      }
+      if (typeof object1 != 'object' && typeof object2 != 'object') {
+        return object1 == object2;
+      }
+      try {
+        var keys1 = Object.keys(object1);
+        var keys2 = Object.keys(object2);
+        var i, key;
+
+        if (keys1.length != keys2.length) {
+          return false;
+        }
+        //the same set of keys (although not necessarily the same order),
+        keys1.sort();
+        keys2.sort();
+        // key test
+        for (i = keys1.length - 1; i >= 0; i--) {
+          if (keys1[i] != keys2[i])
+            return false;
+        }
+        // equivalent values for every corresponding key
+        for (i = keys1.length - 1; i >= 0; i--) {
+          key = keys1[i];
+          if (!isEqual(object1[key], object2[key])) {
+            return false;
+          }
+        }
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
 
   function copyObject(object) {
     return JSON.parse(JSON.stringify(object));
@@ -42,14 +75,16 @@ var isMoveOk = (function () {
     return '';
   }
 
+  //create move base on the information submitted by player
   function createMove(pieces, board, row, col, rowPrev, colPrev, pieceColor, turnIndexBeforeMove) {
     var boardAfterMove = copyObject(board),
       piecesAfterMove = copyObject(pieces),
-      winner = getWinner(piecesAfterMove),
+      winner,
       firstOperation;
     boardAfterMove[rowPrev][colPrev] = '';
     boardAfterMove[row][col] = 'T';
     piecesAfterMove[turnIndexBeforeMove][pieceColor] = [row, col];
+    winner = getWinner(piecesAfterMove);
     if (winner !== '') {
       firstOperation = {endMatch: {endMatchScores: (winner === '0' ? [1, 0] : [0, 1])}};
     } else {
@@ -57,7 +92,7 @@ var isMoveOk = (function () {
     }
 
     return [firstOperation,
-           {set: {key: 'pieces', value: piecesAfterMove}},
+            {set: {key: 'pieces', value: piecesAfterMove}},
             {set: {key: 'board', value: boardAfterMove}},
             {set: {key: 'delta', value: {color: pieceColor,
              row: row, col: col}}}];
@@ -83,10 +118,9 @@ var isMoveOk = (function () {
       }
       return false;
     }
-    return false;
   }
 
-  //check if there is any other existing piece on the path
+  //check if there is any other existing piece on the path that a player tend to move
   function pieceOnPath(board, row, col, rowPrev, colPrev) {
     var i;
     if (col === colPrev) {
@@ -132,9 +166,10 @@ var isMoveOk = (function () {
         }
       }
     }
+    return false;
   }
 
-  //check if there is any legal move
+  //return true if there is no move for a player
   function noLegalMove(board, pieces, turnIndexBeforeMove, gridColor) {
     var cor = pieces[turnIndexBeforeMove][gridColor],
       row = cor[0],
@@ -195,7 +230,6 @@ var isMoveOk = (function () {
         if (row === rowPrev && col === colPrev && pieceColor === gridColor) {
           var noMove = createMove(pieces, board, row, col, rowPrev, colPrev, pieceColor, turnIndexBeforeMove);
           if (!isEqual(noMove, move)) {
-            //console.log("state changed when there is no leagl move");
             return false;
           }
           return true;
@@ -205,15 +239,13 @@ var isMoveOk = (function () {
 
       //check if a piece moves out of board
       if (row > 7 || row < 0 || col > 7 || col < 0) {
-        //console.log("out of board");
         return false;
       }
 
       //the color of the moving piece must be the same as
       //the color of the grid on which the opponent's piece
-      //stopped
+      //stopped last round
       if (pieceColor !== gridColor) {
-        //console.log("color mismatch");
         return false;
       }
 
@@ -221,138 +253,26 @@ var isMoveOk = (function () {
       var rowDiff = row - rowPrev,
         colDiff = col - colPrev;
       if (!checkDirection(turnIndexBeforeMove, rowDiff, colDiff)) {
-        //console.log("illegal move");
         return false;
       }
 
-      //it is not allowed to jump over another pieces
+      //it is not allowed to jump over other pieces
       if (pieceOnPath(board, row, col, rowPrev, colPrev)) {
-        //console.log("jump over other piece");
         return false;
       }
 
       //create the expected move and check with the input
       var expectedMove = createMove(pieces, board, row, col, rowPrev, colPrev, pieceColor, turnIndexBeforeMove);
       if (!isEqual(move, expectedMove)) {
-        //console.log("mismatch with expected move");
         return false;
       }
     } catch (e) {
       //automatically return false if any exception detected
       return false;
     }
-    //passed the tests for all the rules
+    //passed all tests so the move is legal
     return true;
   }
 
-  //manual test cases
-  console.log(
-    [
-      //player 0 moves Brown tower from [7, 0] to [4, 0]
-      //expect to return true
-      isMoveOk({turnIndexBeforeMove: 0, stateBeforeMove: {},
-               move: [{setTurn: {turnIndex: 1}},
-               {set: {key: 'pieces', value: [{BR: [4, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [7, 4], PU: [7, 5], BL: [7, 6], OR: [7, 7]},
-                                             {OR: [0, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [0, 4], RE: [0, 5], GR: [0, 6], BR: [0, 7]}]}},
-               {set: {key: 'board', value: [
-            [ 'T', 'T', 'T', 'T', 'T', 'T', 'T', 'T' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ 'T', '', '', '', '', '', '', '' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ '', 'T', 'T', 'T', 'T', 'T', 'T', 'T' ]]}},
-               {set: {key: 'delta', value: {color: 'BR', row: 4, col: 0}}}]}),
-
-      //based on last turn, player 1 moves Yellow from [0, 4] to [2, 2]
-      //expect to return true
-      isMoveOk({turnIndexBeforeMove: 1,
-               stateBeforeMove: {pieces: [{BR: [4, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [7, 4], PU: [7, 5], BL: [7, 6], OR: [7, 7]},
-                                          {OR: [0, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [0, 4], RE: [0, 5], GR: [0, 6], BR: [0, 7]}],
-                                 board:  [[ 'T', 'T', 'T', 'T', 'T', 'T', 'T', 'T' ],
-                                          [ '', '', '', '', '', '', '', '' ],
-                                          [ '', '', '', '', '', '', '', '' ],
-                                          [ '', '', '', '', '', '', '', '' ],
-                                          [ 'T', '', '', '', '', '', '', '' ],
-                                          [ '', '', '', '', '', '', '', '' ],
-                                          [ '', '', '', '', '', '', '', '' ],
-                                          [ '', 'T', 'T', 'T', 'T', 'T', 'T', 'T' ]],
-                                 delta: {color: 'BR', row: 4, col: 0}
-                                },
-               move: [{setTurn: {turnIndex: 0}},
-               {set: {key: 'pieces', value: [{BR: [4, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [7, 4], PU: [7, 5], BL: [7, 6], OR: [7, 7]},
-                                             {OR: [0, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [2, 2], RE: [0, 5], GR: [0, 6], BR: [0, 7]}]}},
-               {set: {key: 'board', value: [
-            [ 'T', 'T', 'T', 'T', '', 'T', 'T', 'T' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ '', '', 'T', '', '', '', '', '' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ 'T', '', '', '', '', '', '', '' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ '', 'T', 'T', 'T', 'T', 'T', 'T', 'T' ]]}},
-               {set: {key: 'delta', value: {color: 'YE', row: 2, col: 2}}}]}),
-
-      //player 0 should move BR but no legal move, so he put BR at the same place which means he passes
-      //expect to return true
-      isMoveOk({turnIndexBeforeMove: 0,
-               stateBeforeMove: {pieces: [{BR: [4, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [3, 4], PU: [5, 5], BL: [7, 6], OR: [7, 7]},
-                                          {OR: [3, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [3, 1], RE: [0, 5], GR: [0, 6], BR: [1, 6]}],
-                                 board:  [[ '', 'T', 'T', 'T', '', 'T', 'T', '' ],
-                                          [ '', '', '', '', '', '', 'T', '' ],
-                                          [ '', '', '', '', '', '', '', '' ],
-                                          [ 'T', 'T', '', '', 'T', '', '', '' ],
-                                          [ 'T', '', '', '', '', '', '', '' ],
-                                          [ '', '', '', '', '', 'T', '', '' ],
-                                          [ '', '', '', '', '', '', '', '' ],
-                                          [ '', 'T', 'T', 'T', '', '', 'T', 'T' ]],
-                                 delta: {color: 'BR', row: 1, col: 6}
-                                },
-               move: [{setTurn: {turnIndex: 1}},
-               {set: {key: 'pieces', value: [{BR: [4, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [3, 4], PU: [5, 5], BL: [7, 6], OR: [7, 7]},
-                                             {OR: [3, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [3, 1], RE: [0, 5], GR: [0, 6], BR: [1, 6]}]}},
-               {set: {key: 'board', value: [
-            [ '', 'T', 'T', 'T', '', 'T', 'T', '' ],
-            [ '', '', '', '', '', '', 'T', '' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ 'T', 'T', '', '', 'T', '', '', '' ],
-            [ 'T', '', '', '', '', '', '', '' ],
-            [ '', '', '', '', '', 'T', '', '' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ '', 'T', 'T', 'T', '', '', 'T', 'T' ]]}},
-               {set: {key: 'delta', value: {color: 'BR', row: 4, col: 0}}}]}),
-
-      //the state is the same with case3 but this time player0 moves BR to [2, 0]
-      //expect to return false
-      isMoveOk({turnIndexBeforeMove: 0,
-                   stateBeforeMove: {pieces: [{BR: [4, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [3, 4], PU: [5, 5], BL: [7, 6], OR: [7, 7]},
-                                              {OR: [3, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [3, 1], RE: [0, 5], GR: [0, 6], BR: [1, 6]}],
-                                     board:  [[ '', 'T', 'T', 'T', '', 'T', 'T', '' ],
-                                              [ '', '', '', '', '', '', 'T', '' ],
-                                              [ '', '', '', '', '', '', '', '' ],
-                                              [ 'T', 'T', '', '', 'T', '', '', '' ],
-                                              [ 'T', '', '', '', '', '', '', '' ],
-                                              [ '', '', '', '', '', 'T', '', '' ],
-                                              [ '', '', '', '', '', '', '', '' ],
-                                              [ '', 'T', 'T', 'T', '', '', 'T', 'T' ]],
-                                     delta: {color: 'BR', row: 1, col: 6}
-                                    },
-                   move: [{setTurn: {turnIndex: 1}},
-                   {set: {key: 'pieces', value: [{BR: [2, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [3, 4], PU: [5, 5], BL: [7, 6], OR: [7, 7]},
-                                                 {OR: [3, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [3, 1], RE: [0, 5], GR: [0, 6], BR: [1, 6]}]}},
-                   {set: {key: 'board', value: [
-            [ '', 'T', 'T', 'T', '', 'T', 'T', '' ],
-            [ '', '', '', '', '', '', 'T', '' ],
-            [ 'T', '', '', '', '', '', '', '' ],
-            [ 'T', 'T', '', '', 'T', '', '', '' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ '', '', '', '', '', 'T', '', '' ],
-            [ '', '', '', '', '', '', '', '' ],
-            [ '', 'T', 'T', 'T', '', '', 'T', 'T' ]]}},
-                   {set: {key: 'delta', value: {color: 'BR', row: 2, col: 0}}}]})
-    ]
-  );
-
-  return isMoveOk;
+  return {isMoveOk: isMoveOk};
 }());
