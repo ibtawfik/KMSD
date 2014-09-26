@@ -323,40 +323,40 @@ var kamisadoLogic = (function () {
 
   function getRiddles() {
     return [
-            getExampleMoves(0, 
-                            {pieces: [{BR: [4, 0], GR: [7, 1], RE: [2, 7], YE: [1, 3], PI: [3, 4], PU: [7, 5], BL: [2, 1], OR: [3, 6]},
-                                      {OR: [0, 0], BL: [1, 1], PU: [0, 2], PI: [4, 1], YE: [3, 7], RE: [1, 6], GR: [6, 6], BR: [2, 5]}],
-                             board:  [[ 'T', '', 'T', '', '', '', '', '' ],
-                                      [ '', 'T', '', 'T', '', '', 'T', '' ],
-                                      [ '', 'T', '', '', '', 'T', '', 'T' ],
-                                      [ '', '', '', '', 'T', '', 'T', 'T' ],
-                                      [ 'T', 'T', '', '', '', '', '', '' ],
-                                      [ '', '', '', '', '', '', '', '' ],
-                                      [ '', '', '', '', '', '', 'T', '' ],
-                                      [ '', 'T', '', '', '', 'T', '', '' ]],
-                             delta: {color: 'RE', row: 1, col: 6}},
-                             [
-                             {color: 'BR', row: 1, col: 0, comment: "player0 moves BROWN piece to [1, 0] which is a red grid, the opponent has only 1 choice"},
-                             {color: 'RE', row: 2, col: 6, comment: "player1 has to move RED piece and the only legal move is [2, 6] which is a YELLOW grid and this will lead to a win of player0"},
-                             {color: 'YE', row: 0, col: 3, comment: "player0 moves YELLOW piece to [0, 3], which reaches player1's side, so player0 win"}
-                             ]),
-            getExampleMoves(1,
-                            {pieces: [{BR: [1, 0], GR: [3, 5], RE: [4, 5], YE: [7, 3], PI: [4, 7], PU: [7, 5], BL: [1, 6], OR: [2, 4]},
-                                      {OR: [2, 2], BL: [6, 1], PU: [1, 2], PI: [0, 3], YE: [0, 4], RE: [5, 0], GR: [3, 3], BR: [5, 7]}],
-                             board:  [[ '', '', '', 'T', 'T', '', '', '' ],
-                                      [ 'T', '', 'T', '', '', '', 'T', '' ],
-                                      [ '', '', 'T', '', 'T', '', '', '' ],
-                                      [ '', '', '', 'T', '', 'T', '', '' ],
-                                      [ '', '', '', '', '', 'T', '', 'T' ],
-                                      [ 'T', '', '', '', '', '', '', 'T' ],
-                                      [ '', 'T', '', '', '', '', '', '' ],
-                                      [ '', '', '', 'T', '', 'T', '', '' ]],
-                             delta: {color: 'PI', row: 4, col: 7}},
-                             [
-                             {color: 'PI', row: 2, col: 3, comment: "player1 moves PINK piece to [2, 6] and this gives player0 only 1 choice for RED"},
-                             {color: 'RE', row: 3, col: 4, comment: "player0 has to move RED piece and the only possible move is [3, 4], but this will lead to a win of player1"},
-                             {color: 'BR', row: 7, col: 7, comment: "player1 moves the BROWN piece to [7, 7] and win the game"}
-                             ])
+      getExampleMoves(0, 
+                      {pieces: [{BR: [4, 0], GR: [7, 1], RE: [2, 7], YE: [1, 3], PI: [3, 4], PU: [7, 5], BL: [2, 1], OR: [3, 6]},
+                                {OR: [0, 0], BL: [1, 1], PU: [0, 2], PI: [4, 1], YE: [3, 7], RE: [1, 6], GR: [6, 6], BR: [2, 5]}],
+                       board:  [[ 'T', '', 'T', '', '', '', '', '' ],
+                                [ '', 'T', '', 'T', '', '', 'T', '' ],
+                                [ '', 'T', '', '', '', 'T', '', 'T' ],
+                                [ '', '', '', '', 'T', '', 'T', 'T' ],
+                                [ 'T', 'T', '', '', '', '', '', '' ],
+                                [ '', '', '', '', '', '', '', '' ],
+                                [ '', '', '', '', '', '', 'T', '' ],
+                                [ '', 'T', '', '', '', 'T', '', '' ]],
+                       delta: {color: 'RE', row: 1, col: 6}},
+                       [
+                       {color: 'BR', row: 1, col: 0, comment: "player0 moves BROWN piece to [1, 0] which is a red grid, the opponent has only 1 choice"},
+                       {color: 'RE', row: 2, col: 6, comment: "player1 has to move RED piece and the only legal move is [2, 6] which is a YELLOW grid and this will lead to a win of player0"},
+                       {color: 'YE', row: 0, col: 3, comment: "player0 moves YELLOW piece to [0, 3], which reaches player1's side, so player0 win"}
+                       ]),
+      getExampleMoves(1,
+                      {pieces: [{BR: [1, 0], GR: [3, 5], RE: [4, 5], YE: [7, 3], PI: [4, 7], PU: [7, 5], BL: [1, 6], OR: [2, 4]},
+                                {OR: [2, 2], BL: [6, 1], PU: [1, 2], PI: [0, 3], YE: [0, 4], RE: [5, 0], GR: [3, 3], BR: [5, 7]}],
+                       board:  [[ '', '', '', 'T', 'T', '', '', '' ],
+                                [ 'T', '', 'T', '', '', '', 'T', '' ],
+                                [ '', '', 'T', '', 'T', '', '', '' ],
+                                [ '', '', '', 'T', '', 'T', '', '' ],
+                                [ '', '', '', '', '', 'T', '', 'T' ],
+                                [ 'T', '', '', '', '', '', '', 'T' ],
+                                [ '', 'T', '', '', '', '', '', '' ],
+                                [ '', '', '', 'T', '', 'T', '', '' ]],
+                       delta: {color: 'PI', row: 4, col: 7}},
+                       [
+                       {color: 'PI', row: 2, col: 3, comment: "player1 moves PINK piece to [2, 6] and this gives player0 only 1 choice for RED"},
+                       {color: 'RE', row: 3, col: 4, comment: "player0 has to move RED piece and the only possible move is [3, 4], but this will lead to a win of player1"},
+                       {color: 'BR', row: 7, col: 7, comment: "player1 moves the BROWN piece to [7, 7] and win the game"}
+                       ])
     ];
   }
 
