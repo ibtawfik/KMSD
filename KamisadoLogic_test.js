@@ -550,4 +550,36 @@ describe("In Kamisado ", function(){
                           [ '', '', 'T', '', 'T', 'T', 'T', '' ]]}},
                {set: {key: 'delta', value: {color: 'YE', row: 3, col: 3}}}]);
   });
+
+  function expectLegalHistoryThatEndsTheGame(history) {
+    for (var i = 0; i < history.length; i++) {
+      expectMoveOk(history[i].turnIndexBeforeMove,
+        history[i].stateBeforeMove,
+        history[i].move);
+    }
+    expect(history[history.length - 1].move[0].endMatch).toBeDefined();
+  }
+
+  //only a legal history, the last move may not ends a game
+  function expectLegalHistory(history) {
+    for (var i = 0; i < history.length; i++) {
+      expectMoveOk(history[i].turnIndexBeforeMove,
+        history[i].stateBeforeMove,
+        history[i].move);
+    }
+  }
+
+  it("getRiddles returns legal histories where the last move ends the game", function() {
+    var riddles = kamisadoLogic.getRiddles();
+    expect(riddles.length).toBe(2);
+    for (var i = 0; i < riddles.length; i++) {
+      expectLegalHistoryThatEndsTheGame(riddles[i]);
+    }
+  });
+
+  it("getExampleGame returns a legal history", function() {
+    var exampleGame = kamisadoLogic.getExampleGame();
+    expect(exampleGame.length).toBe(8);
+    expectLegalHistory(exampleGame);
+  });
 });
