@@ -1,4 +1,13 @@
 describe("In Kamisado ", function(){
+  var kamisadoLogic;
+
+  beforeEach(module("myApp.gameLogic"));
+
+  beforeEach(inject(function (gameLogic) {
+    kamisadoLogic = gameLogic;
+  }));
+
+
   function expectMoveOk(turnIndexBeforeMove, stateBeforeMove, move) {
     expect(kamisadoLogic.isMoveOk({turnIndexBeforeMove: turnIndexBeforeMove,
       stateBeforeMove: stateBeforeMove,

@@ -1,7 +1,6 @@
-/*jslint devel: true, indent: 2 */
-/*global console */
-var kamisadoLogic = (function () {
-  'use strict';
+'use strict';
+
+angular.module('myApp.gameLogic', []).service('gameLogic', function () {
 
   //game board with the colors of each grid
   var gridColors = [
@@ -16,43 +15,11 @@ var kamisadoLogic = (function () {
     ];
 
   function isEqual(object1, object2) {
-      if (object1 === object2) {
-        return true;
-      }
-      if (typeof object1 != 'object' && typeof object2 != 'object') {
-        return object1 == object2;
-      }
-      try {
-        var keys1 = Object.keys(object1);
-        var keys2 = Object.keys(object2);
-        var i, key;
-
-        if (keys1.length != keys2.length) {
-          return false;
-        }
-        //the same set of keys (although not necessarily the same order),
-        keys1.sort();
-        keys2.sort();
-        // key test
-        for (i = keys1.length - 1; i >= 0; i--) {
-          if (keys1[i] != keys2[i])
-            return false;
-        }
-        // equivalent values for every corresponding key
-        for (i = keys1.length - 1; i >= 0; i--) {
-          key = keys1[i];
-          if (!isEqual(object1[key], object2[key])) {
-            return false;
-          }
-        }
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }
+    return angular.equals(object1, object2);
+  }
 
   function copyObject(object) {
-    return JSON.parse(JSON.stringify(object));
+    return angular.copy(object);
   }
 
   //player win by getting one of their pieces to the other end of the board
@@ -76,11 +43,77 @@ var kamisadoLogic = (function () {
   }
 
   //create move base on the information submitted by player
-  function createMove(pieces, board, row, col, rowPrev, colPrev, pieceColor, turnIndexBeforeMove) {
+  function createMove(stateBeforeMove, row, col, pieceColor, turnIndexBeforeMove) {
+    var pieces = stateBeforeMove.pieces;
+    if (pieces === undefined) {
+        pieces = [{BR: [7, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [7, 4], PU: [7, 5], BL: [7, 6], OR: [7, 7]},
+                  {OR: [0, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [0, 4], RE: [0, 5], GR: [0, 6], BR: [0, 7]}
+                  ];
+    }
+
+    var board = stateBeforeMove.board;
+    if (board === undefined) {
+      board = [[ 'T', 'T', 'T', 'T', 'T', 'T', 'T', 'T' ],
+               [ '', '', '', '', '', '', '', '' ],
+               [ '', '', '', '', '', '', '', '' ],
+               [ '', '', '', '', '', '', '', '' ],
+               [ '', '', '', '', '', '', '', '' ],
+               [ '', '', '', '', '', '', '', '' ],
+               [ '', '', '', '', '', '', '', '' ],
+               [ 'T', 'T', 'T', 'T', 'T', 'T', 'T', 'T' ]];
+    }
+
+    var deltaPrev = stateBeforeMove.delta,
+      gridColor,
+      //get the coordinate of the piece before moving
+      coordinate = pieces[turnIndexBeforeMove][pieceColor],
+      rowPrev = coordinate[0],
+      colPrev = coordinate[1];
+
+    //the color of the grid on which the opponent's piece stopped
+    //in the previous round
+    if (deltaPrev === undefined) {
+      gridColor = pieceColor;
+    } else {
+      gridColor = gridColors[deltaPrev.row][deltaPrev.col];
+    }
+
+    //check for the case where a player has no legal move
+    if (noLegalMove(board, pieces, turnIndexBeforeMove, gridColor)) {
+      if (row === rowPrev && col === colPrev && pieceColor === gridColor) {
+        return [{setTurn: {turnIndex: 1 - turnIndexBeforeMove}},
+            {set: {key: 'pieces', value: pieces}},
+            {set: {key: 'board', value: board}},
+            {set: {key: 'delta', value: {color: pieceColor,
+             row: row, col: col}}}];
+      }
+      throw new Error("State changed while there is no legal move");
+    }
+
+    //the color of the moving piece must be the same as
+    //the color of the grid on which the opponent's piece
+    //stopped last round
+    if (pieceColor !== gridColor) {
+      throw new Error("Must move the piece that has the same color with the grid on which the opponent stoped last round!");
+    }
+
+    //can only move straight forward or diagonally forward
+    var rowDiff = row - rowPrev,
+      colDiff = col - colPrev;
+    if (!checkDirection(turnIndexBeforeMove, rowDiff, colDiff)) {
+      throw new Error("One can only move a piece straight forward or diagonally forward!");
+    }
+
+    //it is not allowed to jump over other pieces
+    if (pieceOnPath(board, row, col, rowPrev, colPrev)) {
+      throw new Error("It is not allowed to move a piece over another piece");
+    }
+
     var boardAfterMove = copyObject(board),
       piecesAfterMove = copyObject(pieces),
       winner,
       firstOperation;
+
     boardAfterMove[rowPrev][colPrev] = '';
     boardAfterMove[row][col] = 'T';
     piecesAfterMove[turnIndexBeforeMove][pieceColor] = [row, col];
@@ -190,79 +223,15 @@ var kamisadoLogic = (function () {
       var deltaValue = move[3].set.value,
         pieceColor = deltaValue.color,
         row = deltaValue.row,
-        col = deltaValue.col,
-        pieces = stateBeforeMove.pieces;
-      if (pieces === undefined) {
-        pieces = [{BR: [7, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [7, 4], PU: [7, 5], BL: [7, 6], OR: [7, 7]},
-                  {OR: [0, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [0, 4], RE: [0, 5], GR: [0, 6], BR: [0, 7]}
-                  ];
-      }
-
-      var board = stateBeforeMove.board;
-      if (board === undefined) {
-        board = [[ 'T', 'T', 'T', 'T', 'T', 'T', 'T', 'T' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ 'T', 'T', 'T', 'T', 'T', 'T', 'T', 'T' ]];
-      }
-      var deltaPrev = stateBeforeMove.delta,
-        gridColor,
-        //get the coordinate before moving
-        coordinate = pieces[turnIndexBeforeMove][pieceColor],
-        rowPrev = coordinate[0],
-        colPrev = coordinate[1];
-
-
-      //the color of the grid on which the opponent's piece stopped
-      //in the previous round
-      if (deltaPrev === undefined) {
-        gridColor = pieceColor;
-      } else {
-        gridColor = gridColors[deltaPrev.row][deltaPrev.col];
-      }
-
-      //check for the case where a player has no legal move
-      if (noLegalMove(board, pieces, turnIndexBeforeMove, gridColor)) {
-        if (row === rowPrev && col === colPrev && pieceColor === gridColor) {
-          var noMove = createMove(pieces, board, row, col, rowPrev, colPrev, pieceColor, turnIndexBeforeMove);
-          if (!isEqual(noMove, move)) {
-            return false;
-          }
-          return true;
-        }
-        return false;
-      }
+        col = deltaValue.col;
 
       //check if a piece moves out of board
       if (row > 7 || row < 0 || col > 7 || col < 0) {
         return false;
       }
 
-      //the color of the moving piece must be the same as
-      //the color of the grid on which the opponent's piece
-      //stopped last round
-      if (pieceColor !== gridColor) {
-        return false;
-      }
-
-      //can only move straight forward or diagonally forward
-      var rowDiff = row - rowPrev,
-        colDiff = col - colPrev;
-      if (!checkDirection(turnIndexBeforeMove, rowDiff, colDiff)) {
-        return false;
-      }
-
-      //it is not allowed to jump over other pieces
-      if (pieceOnPath(board, row, col, rowPrev, colPrev)) {
-        return false;
-      }
-
       //create the expected move and check with the input
-      var expectedMove = createMove(pieces, board, row, col, rowPrev, colPrev, pieceColor, turnIndexBeforeMove);
+      var expectedMove = createMove(stateBeforeMove, row, col, pieceColor, turnIndexBeforeMove);
       if (!isEqual(move, expectedMove)) {
         return false;
       }
@@ -283,31 +252,9 @@ var kamisadoLogic = (function () {
       var deltaAndComment = arrayOfDeltaAndComment[i],
         row = deltaAndComment.row,
         col = deltaAndComment.col,
-        pieceColor = deltaAndComment.color,
-        pieces = state.pieces,
-        board = state.board;
-
-        if (pieces === undefined) {
-        pieces = [{BR: [7, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [7, 4], PU: [7, 5], BL: [7, 6], OR: [7, 7]},
-                  {OR: [0, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [0, 4], RE: [0, 5], GR: [0, 6], BR: [0, 7]}
-                  ];
-        }
-
-        if (board === undefined) {
-        board = [[ 'T', 'T', 'T', 'T', 'T', 'T', 'T', 'T' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ '', '', '', '', '', '', '', '' ],
-                 [ 'T', 'T', 'T', 'T', 'T', 'T', 'T', 'T' ]];
-        }
-
-      var coordinate = pieces[turnIndex][pieceColor],
-        rowPrev = coordinate[0],
-        colPrev = coordinate[1],
-        move = createMove(pieces, board, row, col, rowPrev, colPrev, pieceColor, turnIndex);
+        pieceColor = deltaAndComment.color;
+        
+      var move = createMove(state, row, col, pieceColor, turnIndex);
 
       exampleMoves.push({
         stateBeforeMove: state,
@@ -373,5 +320,7 @@ var kamisadoLogic = (function () {
       ]);
   }
 
-  return {isMoveOk: isMoveOk, getExampleGame: getExampleGame, getRiddles: getRiddles};
-}());
+  this.isMoveOk = isMoveOk;
+  this.getExampleGame = getExampleGame;
+  this.getRiddles = getRiddles;
+});
