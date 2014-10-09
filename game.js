@@ -19,6 +19,8 @@ angular.module('myApp',
 
     var isLocalTesting = $window.parent === $window;
 
+    $scope.canMakeSecondClick = false;
+
     //convert gameLogic state to UI state
     function updateUI(params) {
       //pieces information, used to create UI state
@@ -121,8 +123,6 @@ angular.module('myApp',
       $scope.isYourTurn = params.turnIndexAfterMove >= 0 && // game is ongoing
         params.yourPlayerIndex === params.turnIndexAfterMove; // it's my turn
       $scope.turnIndex = params.turnIndexAfterMove;
-
-      $scope.canMakeSecondClick = false;
     }
 
     function sendMakeMove(move) {
@@ -230,7 +230,7 @@ angular.module('myApp',
       }
     };
 
-    //scale body
+    scaleBodyService.scaleBody({width: 500, height: 500});
 
     if (isLocalTesting) {
       game.isMoveOk = gameLogic.isMoveOk;
