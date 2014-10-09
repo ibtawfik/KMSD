@@ -320,7 +320,9 @@ angular.module('myApp.gameLogic', []).service('gameLogic', function () {
       ]);
   }
 
+  this.createMove = createMove;
   this.isMoveOk = isMoveOk;
   this.getExampleGame = getExampleGame;
   this.getRiddles = getRiddles;
+  this.copyObject = copyObject;
 });
