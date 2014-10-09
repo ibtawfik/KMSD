@@ -20,7 +20,7 @@
       <td width="50px" height="50px" ng-repeat="cell in row track by $index" 
         bgcolor="{{cell.color}}"
         ng-click="cellClicked($parent.$index, $index)">
-        &nbsp; {{cell.isEmpty}} &nbsp;
+        &nbsp; {{cell.piece}} &nbsp;
       </td> 
     </tr>
   </table>

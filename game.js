@@ -57,6 +57,7 @@ angular.module('myApp',
                             isBrownPiece: false,
 
                             color: '',
+                            piece: '',//to be removed
 
                             isEmpty: true,
                             isSelected: false,
@@ -89,6 +90,7 @@ angular.module('myApp',
           c = $scope.pieces[0][piece][1];
           $scope.uiBoard[r][c].isEmpty = false;
           $scope.uiBoard[r][c].isPlayer0 = true;
+          $scope.uiBoard[r][c].piece = piece+0;//to be removed
           switch(piece) {
             case 'OR': $scope.uiBoard[r][c].isOrangePiece = true; break;
             case 'BL': $scope.uiBoard[r][c].isBluePiece = true; break;
@@ -107,6 +109,7 @@ angular.module('myApp',
           c = $scope.pieces[1][piece][1];
           $scope.uiBoard[r][c].isEmpty = false;
           $scope.uiBoard[r][c].isPlayer1 = true;
+          $scope.uiBoard[r][c].piece = piece+1;//to be removed
           switch(piece) {
             case 'OR': $scope.uiBoard[r][c].isOrangePiece = true; break;
             case 'BL': $scope.uiBoard[r][c].isBluePiece = true; break;
