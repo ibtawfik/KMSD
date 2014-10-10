@@ -6,6 +6,7 @@ angular.module('myApp',
       $window, $scope, $log,
       messageService, scaleBodyService, stateService, gameLogic) {
 
+
     var gridColors = [
       [ 'OR', 'BL', 'PU', 'PI', 'YE', 'RE', 'GR', 'BR' ],
       [ 'RE', 'OR', 'PI', 'GR', 'BL', 'YE', 'BR', 'PU' ],
