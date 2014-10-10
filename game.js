@@ -17,7 +17,8 @@ angular.module('myApp',
       [ 'BR', 'GR', 'RE', 'YE', 'PI', 'PU', 'BL', 'OR' ]
     ];
 
-    var isLocalTesting = $window.parent === $window;
+    var isLocalTesting = $window.parent === $window,
+      selectedPiece = [];
 
     $scope.canMakeSecondClick = false;
 
@@ -57,7 +58,6 @@ angular.module('myApp',
                             isBrownPiece: false,
 
                             color: '',
-                            piece: '',//to be removed
 
                             isEmpty: true,
                             isSelected: false,
@@ -90,7 +90,6 @@ angular.module('myApp',
           c = $scope.pieces[0][piece][1];
           $scope.uiBoard[r][c].isEmpty = false;
           $scope.uiBoard[r][c].isPlayer0 = true;
-          $scope.uiBoard[r][c].piece = piece+0;//to be removed
           switch(piece) {
             case 'OR': $scope.uiBoard[r][c].isOrangePiece = true; break;
             case 'BL': $scope.uiBoard[r][c].isBluePiece = true; break;
@@ -109,7 +108,6 @@ angular.module('myApp',
           c = $scope.pieces[1][piece][1];
           $scope.uiBoard[r][c].isEmpty = false;
           $scope.uiBoard[r][c].isPlayer1 = true;
-          $scope.uiBoard[r][c].piece = piece+1;//to be removed
           switch(piece) {
             case 'OR': $scope.uiBoard[r][c].isOrangePiece = true; break;
             case 'BL': $scope.uiBoard[r][c].isBluePiece = true; break;
@@ -147,6 +145,11 @@ angular.module('myApp',
     };
 
     $scope.cellClicked = function (row, col) {
+      //every time you click a cell, the originally selected piece will be unselected
+      if (selectedPiece.length !== 0) {
+        selectedPiece[0].isSelected = false;
+      }
+
       $log.info(["Clicked on cell:", row, col]);
       //return if this is not your turn
       if (!$scope.isYourTurn) {
@@ -208,6 +211,10 @@ angular.module('myApp',
           $scope.pieceColor = 'PI';
         }
 
+        //successfully select a piece and mark it as selected
+        $scope.uiBoard[row][col].isSelected = true;
+        selectedPiece[0] = $scope.uiBoard[row][col];
+
         //after successfully making the first click, the player is allowed to make the second click
         $scope.canMakeSecondClick = true;
 
@@ -233,7 +240,7 @@ angular.module('myApp',
       }
     };
 
-    scaleBodyService.scaleBody({width: 500, height: 500});
+    scaleBodyService.scaleBody({width: 400, height: 400});
 
     if (isLocalTesting) {
       game.isMoveOk = gameLogic.isMoveOk;
