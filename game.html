@@ -22,39 +22,39 @@
         bgcolor="{{cell.color}}"
         ng-class="{cell: true}"
         ng-click="cellClicked($parent.$index, $index)">
-        <img src="img/black_red.png" ng-class="{black: true}" ng-show="cell.isRedPiece && cell.isPlayer1 && !cell.isSelected" height=45 width=45 />
-        <img src="img/black_red_selected.png" ng-class="{black: true}" ng-show="cell.isRedPiece && cell.isPlayer1 && cell.isSelected" height=45 width=45/>
-        <img src="img/black_orange.png" ng-class="{black: true}" ng-show="cell.isOrangePiece && cell.isPlayer1 && !cell.isSelected" height=45 width=45/>
-        <img src="img/black_orange_selected.png" ng-class="{black: true}" ng-show="cell.isOrangePiece && cell.isPlayer1 && cell.isSelected" height=45 width=45/>
-        <img src="img/black_green.png" ng-class="{black: true}" ng-show="cell.isGreenPiece && cell.isPlayer1 && !cell.isSelected" height=45 width=45/>
-        <img src="img/black_green_selected.png" ng-class="{black: true}" ng-show="cell.isGreenPiece && cell.isPlayer1 && cell.isSelected" height=45 width=45/>
-        <img src="img/black_blue.png" ng-class="{black: true}" ng-show="cell.isBluePiece && cell.isPlayer1 && !cell.isSelected" height=45 width=45/>
-        <img src="img/black_blue_selected.png" ng-class="{black: true}" ng-show="cell.isBluePiece && cell.isPlayer1 && cell.isSelected" height=45 width=45/>
-        <img src="img/black_purple.png" ng-class="{black: true}" ng-show="cell.isPurplePiece && cell.isPlayer1 && !cell.isSelected" height=45 width=45/>
-        <img src="img/black_purple_selected.png" ng-class="{black: true}" ng-show="cell.isPurplePiece && cell.isPlayer1 && cell.isSelected" height=45 width=45/>
-        <img src="img/black_brown.png" ng-class="{black: true}" ng-show="cell.isBrownPiece && cell.isPlayer1 && !cell.isSelected" height=45 width=45/>
-        <img src="img/black_brown_selected.png" ng-class="{black: true}" ng-show="cell.isBrownPiece && cell.isPlayer1 && cell.isSelected" height=45 width=45/>
-        <img src="img/black_yellow.png" ng-class="{black: true}" ng-show="cell.isYellowPiece && cell.isPlayer1 && !cell.isSelected" height=45 width=45/>
-        <img src="img/black_yellow_selected.png" ng-class="{black: true}" ng-show="cell.isYellowPiece && cell.isPlayer1 && cell.isSelected" height=45 width=45/>
-        <img src="img/black_pink.png" ng-class="{black: true}" ng-show="cell.isPinkPiece && cell.isPlayer1 && !cell.isSelected" height=45 width=45/>
-        <img src="img/black_pink_selected.png" ng-class="{black: true}" ng-show="cell.isPinkPiece && cell.isPlayer1 && cell.isSelected" height=45 width=45/>
+        <img src="img/black_red.png" ng-class="{black: true}" ng-show="cell.isRedPiece && cell.isPlayer1 && !cell.isSelected" />
+        <img src="img/black_red_selected.png" ng-class="{black: true}" ng-show="cell.isRedPiece && cell.isPlayer1 && cell.isSelected"/>
+        <img src="img/black_orange.png" ng-class="{black: true}" ng-show="cell.isOrangePiece && cell.isPlayer1 && !cell.isSelected"/>
+        <img src="img/black_orange_selected.png" ng-class="{black: true}" ng-show="cell.isOrangePiece && cell.isPlayer1 && cell.isSelected"/>
+        <img src="img/black_green.png" ng-class="{black: true}" ng-show="cell.isGreenPiece && cell.isPlayer1 && !cell.isSelected"/>
+        <img src="img/black_green_selected.png" ng-class="{black: true}" ng-show="cell.isGreenPiece && cell.isPlayer1 && cell.isSelected"/>
+        <img src="img/black_blue.png" ng-class="{black: true}" ng-show="cell.isBluePiece && cell.isPlayer1 && !cell.isSelected"/>
+        <img src="img/black_blue_selected.png" ng-class="{black: true}" ng-show="cell.isBluePiece && cell.isPlayer1 && cell.isSelected"/>
+        <img src="img/black_purple.png" ng-class="{black: true}" ng-show="cell.isPurplePiece && cell.isPlayer1 && !cell.isSelected"/>
+        <img src="img/black_purple_selected.png" ng-class="{black: true}" ng-show="cell.isPurplePiece && cell.isPlayer1 && cell.isSelected"/>
+        <img src="img/black_brown.png" ng-class="{black: true}" ng-show="cell.isBrownPiece && cell.isPlayer1 && !cell.isSelected"/>
+        <img src="img/black_brown_selected.png" ng-class="{black: true}" ng-show="cell.isBrownPiece && cell.isPlayer1 && cell.isSelected"/>
+        <img src="img/black_yellow.png" ng-class="{black: true}" ng-show="cell.isYellowPiece && cell.isPlayer1 && !cell.isSelected"/>
+        <img src="img/black_yellow_selected.png" ng-class="{black: true}" ng-show="cell.isYellowPiece && cell.isPlayer1 && cell.isSelected"/>
+        <img src="img/black_pink.png" ng-class="{black: true}" ng-show="cell.isPinkPiece && cell.isPlayer1 && !cell.isSelected"/>
+        <img src="img/black_pink_selected.png" ng-class="{black: true}" ng-show="cell.isPinkPiece && cell.isPlayer1 && cell.isSelected"/>
 
-        <img src="img/white_red.png" ng-class="{white: true}" ng-show="cell.isRedPiece && cell.isPlayer0 && !cell.isSelected" height=45 width=45/>
-        <img src="img/white_red_selected.png" ng-class="{white: true}" ng-show="cell.isRedPiece && cell.isPlayer0 && cell.isSelected" height=45 width=45/>
-        <img src="img/white_orange.png" ng-class="{white: true}" ng-show="cell.isOrangePiece && cell.isPlayer0 && !cell.isSelected" height=45 width=45/>
-        <img src="img/white_orange_selected.png" ng-class="{white: true}" ng-show="cell.isOrangePiece && cell.isPlayer0 && cell.isSelected" height=45 width=45/>
-        <img src="img/white_green.png" ng-class="{white: true}" ng-show="cell.isGreenPiece && cell.isPlayer0 && !cell.isSelected" height=45 width=45/>
-        <img src="img/white_green_selected.png" ng-class="{white: true}" ng-show="cell.isGreenPiece && cell.isPlayer0 && cell.isSelected" height=45 width=45/>
-        <img src="img/white_blue.png" ng-class="{white: true}" ng-show="cell.isBluePiece && cell.isPlayer0 && !cell.isSelected" height=45 width=45/>
-        <img src="img/white_blue_selected.png" ng-class="{white: true}" ng-show="cell.isBluePiece && cell.isPlayer0 && cell.isSelected" height=45 width=45/>
-        <img src="img/white_purple.png" ng-class="{white: true}" ng-show="cell.isPurplePiece && cell.isPlayer0 && !cell.isSelected" height=45 width=45/>
-        <img src="img/white_purple_selected.png" ng-class="{white: true}" ng-show="cell.isPurplePiece && cell.isPlayer0 && cell.isSelected" height=45 width=45/>
-        <img src="img/white_brown.png" ng-class="{white: true}" ng-show="cell.isBrownPiece && cell.isPlayer0 && !cell.isSelected" height=45 width=45/>
-        <img src="img/white_brown_selected.png" ng-class="{white: true}" ng-show="cell.isBrownPiece && cell.isPlayer0 && cell.isSelected" height=45 width=45/>
-        <img src="img/white_yellow.png" ng-class="{white: true}" ng-show="cell.isYellowPiece && cell.isPlayer0 && !cell.isSelected" height=45 width=45/>
-        <img src="img/white_yellow_selected.png" ng-class="{white: true}" ng-show="cell.isYellowPiece && cell.isPlayer0 && cell.isSelected" height=45 width=45/>
-        <img src="img/white_pink.png" ng-class="{white: true}" ng-show="cell.isPinkPiece && cell.isPlayer0 && !cell.isSelected" height=45 width=45/>
-        <img src="img/white_pink_selected.png" ng-class="{white: true}" ng-show="cell.isPinkPiece && cell.isPlayer0 && cell.isSelected" height=45 width=45/>
+        <img src="img/white_red.png" ng-class="{white: true}" ng-show="cell.isRedPiece && cell.isPlayer0 && !cell.isSelected"/>
+        <img src="img/white_red_selected.png" ng-class="{white: true}" ng-show="cell.isRedPiece && cell.isPlayer0 && cell.isSelected"/>
+        <img src="img/white_orange.png" ng-class="{white: true}" ng-show="cell.isOrangePiece && cell.isPlayer0 && !cell.isSelected"/>
+        <img src="img/white_orange_selected.png" ng-class="{white: true}" ng-show="cell.isOrangePiece && cell.isPlayer0 && cell.isSelected"/>
+        <img src="img/white_green.png" ng-class="{white: true}" ng-show="cell.isGreenPiece && cell.isPlayer0 && !cell.isSelected"/>
+        <img src="img/white_green_selected.png" ng-class="{white: true}" ng-show="cell.isGreenPiece && cell.isPlayer0 && cell.isSelected"/>
+        <img src="img/white_blue.png" ng-class="{white: true}" ng-show="cell.isBluePiece && cell.isPlayer0 && !cell.isSelected"/>
+        <img src="img/white_blue_selected.png" ng-class="{white: true}" ng-show="cell.isBluePiece && cell.isPlayer0 && cell.isSelected"/>
+        <img src="img/white_purple.png" ng-class="{white: true}" ng-show="cell.isPurplePiece && cell.isPlayer0 && !cell.isSelected"/>
+        <img src="img/white_purple_selected.png" ng-class="{white: true}" ng-show="cell.isPurplePiece && cell.isPlayer0 && cell.isSelected"/>
+        <img src="img/white_brown.png" ng-class="{white: true}" ng-show="cell.isBrownPiece && cell.isPlayer0 && !cell.isSelected"/>
+        <img src="img/white_brown_selected.png" ng-class="{white: true}" ng-show="cell.isBrownPiece && cell.isPlayer0 && cell.isSelected"/>
+        <img src="img/white_yellow.png" ng-class="{white: true}" ng-show="cell.isYellowPiece && cell.isPlayer0 && !cell.isSelected"/>
+        <img src="img/white_yellow_selected.png" ng-class="{white: true}" ng-show="cell.isYellowPiece && cell.isPlayer0 && cell.isSelected"/>
+        <img src="img/white_pink.png" ng-class="{white: true}" ng-show="cell.isPinkPiece && cell.isPlayer0 && !cell.isSelected"/>
+        <img src="img/white_pink_selected.png" ng-class="{white: true}" ng-show="cell.isPinkPiece && cell.isPlayer0 && cell.isSelected"/>
       </td> 
     </tr>
   </table>
