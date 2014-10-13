@@ -1,8 +1,12 @@
 'use strict';
 
-angular.module('myApp.gameLogic', []).service('gameLogic', function () {
+angular.module('myApp').service('gameLogic', function () {
 
-  //game board with the colors of each grid
+  /**
+   *
+   *Game board with colors of each grid
+   *
+   */
   var gridColors = [
       [ 'OR', 'BL', 'PU', 'PI', 'YE', 'RE', 'GR', 'BR' ],
       [ 'RE', 'OR', 'PI', 'GR', 'BL', 'YE', 'BR', 'PU' ],
@@ -22,7 +26,11 @@ angular.module('myApp.gameLogic', []).service('gameLogic', function () {
     return angular.copy(object);
   }
 
-  //player win by getting one of their pieces to the other end of the board
+  /**
+   *
+   *Player win by getting one of their pieces to the opponent's end of the board
+   *
+   */
   function getWinner(pieces) {
     var color;
     for (color in pieces[0]) {
@@ -42,7 +50,84 @@ angular.module('myApp.gameLogic', []).service('gameLogic', function () {
     return '';
   }
 
-  //create move base on the information submitted by player
+  /**
+   *
+   *Computer generate a random legal move
+   *
+   */
+  function createComputerMove(stateBeforeMove, pieceColor, turnIndexBeforeMove) {
+    var possibleMoves = [],
+      pieces = stateBeforeMove.pieces,
+      board = stateBeforeMove.board,
+      currRow = pieces[turnIndexBeforeMove][pieceColor][0],
+      currCol = pieces[turnIndexBeforeMove][pieceColor][1],
+      row,
+      col;
+
+    //if the computer has no legal move, return the default move
+    if (noLegalMove(board, pieces, turnIndexBeforeMove, pieceColor)) {
+      return [{setTurn: {turnIndex: 1 - turnIndexBeforeMove}},
+            {set: {key: 'pieces', value: pieces}},
+            {set: {key: 'board', value: board}},
+            {set: {key: 'delta', value: {color: pieceColor,
+             row: currRow, col: currCol}}}];
+    }
+
+    var l = true,
+      f = true,
+      r = true,
+      i = 0;
+
+    //create all possible moves
+    while (l || f || r) {
+      if (turnIndexBeforeMove === 0) {
+        i = i - 1;
+      }
+      else {
+        i = i + 1;
+      }
+      if (l) {
+        row = currRow + i;
+        col = currCol + i;
+        try {
+          possibleMoves.push(createMove(stateBeforeMove, row, col, pieceColor, turnIndexBeforeMove));
+        }
+        catch (e) {
+          l = false;
+        }
+      }
+      if (f) {
+        row = currRow + i;
+        col = currCol;
+        try {
+          possibleMoves.push(createMove(stateBeforeMove, row, col, pieceColor, turnIndexBeforeMove));
+        }
+        catch (e) {
+          f = false;
+        }
+      }
+      if (r) {
+        row = currRow + i;
+        col = currCol - i;
+        try {
+          possibleMoves.push(createMove(stateBeforeMove, row, col, pieceColor, turnIndexBeforeMove));
+        }
+        catch (e) {
+          r = false;
+        }
+      }
+    }
+
+    //get a random move from all possible moves
+    var randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+    return randomMove;
+  }
+
+  /**
+   *
+   *Create move base on the information submitted by player
+   *
+   */
   function createMove(stateBeforeMove, row, col, pieceColor, turnIndexBeforeMove) {
     var pieces = stateBeforeMove.pieces;
     if (pieces === undefined) {
@@ -131,7 +216,11 @@ angular.module('myApp.gameLogic', []).service('gameLogic', function () {
              row: row, col: col}}}];
   }
 
-  //check if a piece moves forward or diagonally forward
+  /**
+   *
+   *Return true if a piece moves forward or diagonally forward
+   *
+   */
   function checkDirection(turnIndex, rowDiff, colDiff) {
     if (turnIndex === 0) {
       if (rowDiff >= 0) {
@@ -153,7 +242,11 @@ angular.module('myApp.gameLogic', []).service('gameLogic', function () {
     }
   }
 
-  //check if there is any other existing piece on the path that a player tend to move
+  /**
+   *
+   *Check if there is any other existing piece on the path that a player tend to move
+   *
+   */
   function pieceOnPath(board, row, col, rowPrev, colPrev) {
     var i;
     if (col === colPrev) {
@@ -202,7 +295,11 @@ angular.module('myApp.gameLogic', []).service('gameLogic', function () {
     return false;
   }
 
-  //return true if there is no move for a player
+  /**
+   *
+   *Return true if there is no legal move for a player
+   *
+   */
   function noLegalMove(board, pieces, turnIndexBeforeMove, gridColor) {
     var cor = pieces[turnIndexBeforeMove][gridColor],
       row = cor[0],
@@ -214,6 +311,7 @@ angular.module('myApp.gameLogic', []).service('gameLogic', function () {
       return true;
     }
   }
+
 
   function isMoveOk(params) {
     var move = params.move,
@@ -320,9 +418,9 @@ angular.module('myApp.gameLogic', []).service('gameLogic', function () {
       ]);
   }
 
+  this.createComputerMove = createComputerMove;
   this.createMove = createMove;
   this.isMoveOk = isMoveOk;
   this.getExampleGame = getExampleGame;
   this.getRiddles = getRiddles;
-  this.copyObject = copyObject;
 });

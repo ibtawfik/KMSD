@@ -1,11 +1,20 @@
 'use strict';
 
-angular.module('myApp',
-    ['myApp.messageService', 'myApp.gameLogic', 'myApp.scaleBodyService', 'platformApp'])
+angular.module('myApp', ['ngTouch'])
   .controller('Ctrl', function (
-      $window, $scope, $log,
-      messageService, scaleBodyService, stateService, gameLogic) {
+      $window, $scope, $log, $timeout,
+      gameService, scaleBodyService, gameLogic) {
 
+    /*
+    Audio
+    */
+
+    function sendComputerMove() {
+      var row = $scope.state.delta.row,
+        col = $scope.state.delta.col,
+        color = gridColors[row][col];
+      gameService.makeMove(gameLogic.createComputerMove($scope.state, color, $scope.turnIndex));
+    }
 
     var gridColors = [
       [ 'OR', 'BL', 'PU', 'PI', 'YE', 'RE', 'GR', 'BR' ],
@@ -18,8 +27,7 @@ angular.module('myApp',
       [ 'BR', 'GR', 'RE', 'YE', 'PI', 'PU', 'BL', 'OR' ]
     ];
 
-    var isLocalTesting = $window.parent === $window,
-      selectedPiece = [];
+    var selectedPiece = [];
 
     $scope.canMakeSecondClick = false;
 
@@ -31,10 +39,15 @@ angular.module('myApp',
         $scope.pieces = [{BR: [7, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [7, 4], PU: [7, 5], BL: [7, 6], OR: [7, 7]},
                          {OR: [0, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [0, 4], RE: [0, 5], GR: [0, 6], BR: [0, 7]}];
       }
-      //state after the previous move, used to create this move
+
+      /*
+      Play audio
+      */
+
+      //state after the previous move, will used in this createMove
       $scope.state = params.stateAfterMove;
 
-      //UI state
+      //create UI state
       $scope.uiBoard = [[],[],[],[],[],[],[],[]];
 
       var piece,
@@ -84,7 +97,7 @@ angular.module('myApp',
         }
       }
 
-      //add pieces to game board by reading information from pieces
+      //add pieces to game board by reading from pieces
       for (piece in $scope.pieces[0]) {
         if ($scope.pieces[0].hasOwnProperty(piece)) {
           r = $scope.pieces[0][piece][0];
@@ -125,28 +138,19 @@ angular.module('myApp',
       $scope.isYourTurn = params.turnIndexAfterMove >= 0 && // game is ongoing
         params.yourPlayerIndex === params.turnIndexAfterMove; // it's my turn
       $scope.turnIndex = params.turnIndexAfterMove;
-    }
 
-    function sendMakeMove(move) {
-      $log.info(["Making move:", move]);
-      if (isLocalTesting) {
-        stateService.makeMove(move);
-      } else {
-        messageService.sendMessage({makeMove: move});
+      // Is it the computer's turn?
+      if ($scope.isYourTurn
+          && params.playersInfo[params.yourPlayerIndex].playerId === '') {
+        // Wait 500 milliseconds until animation ends.
+        $timeout(sendComputerMove, 500);
       }
     }
 
     updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex: -2});
-    var game = {
-      gameDeveloperEmail: "rshen1993@gmail.com",
-      minNumberOfPlayers: 2,
-      maxNumberOfPlayers: 2,
-      exampleGame: gameLogic.getExampleGame(),
-      riddles: gameLogic.getRiddles()
-    };
 
     $scope.cellClicked = function (row, col) {
-      //every time you click a cell, the originally selected piece will be unselected
+      //every time you click on a cell, the originally selected piece will be unselected
       if (selectedPiece.length !== 0) {
         selectedPiece[0].isSelected = false;
       }
@@ -157,12 +161,12 @@ angular.module('myApp',
         return;
       }
       try {
-        //if clicking on a non-empty cell, then this is the first click
-        if (!$scope.uiBoard[row][col].isEmpty) {
+        //if the player is not allowed to make the second click, then this is the first click
+        if (!$scope.canMakeSecondClick) {
           $scope.firstClick(row,col);
           return;
         }
-        //if clcking on a empty cell and the player is allowed to make the second click, then this is the second click
+        //if the player is allowed to make the second click, then this is the second click
         else if ($scope.canMakeSecondClick) {
           $scope.secondClick(row,col);
           return;
@@ -184,6 +188,7 @@ angular.module('myApp',
         return;
       }
 
+      //choose the pieceColor for createMove
       try {
         $scope.pieceColor = '';
 
@@ -233,30 +238,27 @@ angular.module('myApp',
         $scope.canMakeSecondClick = false;
         $scope.isYourTurn = false; // to prevent making another move
         // TODO: show animations and only then send makeMove.
-        sendMakeMove(move);
+        gameService.makeMove(move);
       } catch (e) {
-        //if a player fails to make the second click, he has to start again from the first click
+        //if a player fails to make a valid second click, he has to start again from the first click
         $scope.canMakeSecondClick = false;
         return;
       }
     };
 
+    /*
+    Functions for animations
+    */
+
     scaleBodyService.scaleBody({width: 400, height: 400});
 
-    if (isLocalTesting) {
-      game.isMoveOk = gameLogic.isMoveOk;
-      game.updateUI = updateUI;
-      stateService.setGame(game);
-    } else {
-      messageService.addMessageListener(function (message) {
-        if (message.isMoveOk !== undefined) {
-          var isMoveOkResult = gameLogic.isMoveOk(message.isMoveOk);
-          messageService.sendMessage({isMoveOkResult: isMoveOkResult});
-        } else if (message.updateUI !== undefined) {
-          updateUI(message.updateUI);
-        }
-      });
-
-      messageService.sendMessage({gameReady : game});
-    }
+    gameService.setGame({
+      gameDeveloperEmail: "rshen1993@gmail.com",
+      minNumberOfPlayers: 2,
+      maxNumberOfPlayers: 2,
+      exampleGame: gameLogic.getExampleGame(),
+      riddles: gameLogic.getRiddles(),
+      isMoveOk: gameLogic.isMoveOk,
+      updateUI: updateUI
+    });
   });
