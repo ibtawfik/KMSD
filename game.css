@@ -17,15 +17,11 @@ body {
 }
 
 .black {
-  height: 46px;
-  width: 50px;
   position: relative;
-  right: 2px;
+  right: 3px;
 }
 
 .white {
-  height: 46px;
-  width: 50px;
   position: relative;
   right: 2px;
   top: 4px;

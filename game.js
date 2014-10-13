@@ -70,6 +70,7 @@ angular.module('myApp', ['ngTouch'])
                             isRedPiece: false,
                             isGreenPiece: false,
                             isBrownPiece: false,
+                            piece: '',
 
                             color: '',
 
@@ -114,6 +115,16 @@ angular.module('myApp', ['ngTouch'])
             case 'GR': $scope.uiBoard[r][c].isGreenPiece = true; break;
             case 'BR': $scope.uiBoard[r][c].isBrownPiece = true; break;
           }
+          switch(piece) {
+            case 'OR': $scope.uiBoard[r][c].piece = 'img/white_orange'; break;
+            case 'BL': $scope.uiBoard[r][c].piece = 'img/white_blue'; break;
+            case 'PU': $scope.uiBoard[r][c].piece = 'img/white_purple'; break;
+            case 'PI': $scope.uiBoard[r][c].piece = 'img/white_pink'; break;
+            case 'YE': $scope.uiBoard[r][c].piece = 'img/white_yellow'; break;
+            case 'RE': $scope.uiBoard[r][c].piece = 'img/white_red'; break;
+            case 'GR': $scope.uiBoard[r][c].piece = 'img/white_green'; break;
+            case 'BR': $scope.uiBoard[r][c].piece = 'img/white_brown'; break;
+          }
         }
       }
       for (piece in $scope.pieces[1]) {
@@ -131,6 +142,16 @@ angular.module('myApp', ['ngTouch'])
             case 'RE': $scope.uiBoard[r][c].isRedPiece = true; break;
             case 'GR': $scope.uiBoard[r][c].isGreenPiece = true; break;
             case 'BR': $scope.uiBoard[r][c].isBrownPiece = true; break;
+          }
+          switch(piece) {
+            case 'OR': $scope.uiBoard[r][c].piece = 'img/black_orange'; break;
+            case 'BL': $scope.uiBoard[r][c].piece = 'img/black_blue'; break;
+            case 'PU': $scope.uiBoard[r][c].piece = 'img/black_purple'; break;
+            case 'PI': $scope.uiBoard[r][c].piece = 'img/black_pink'; break;
+            case 'YE': $scope.uiBoard[r][c].piece = 'img/black_yellow'; break;
+            case 'RE': $scope.uiBoard[r][c].piece = 'img/black_red'; break;
+            case 'GR': $scope.uiBoard[r][c].piece = 'img/black_green'; break;
+            case 'BR': $scope.uiBoard[r][c].piece = 'img/black_brown'; break;
           }
         }
       }
