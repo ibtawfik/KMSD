@@ -1,13 +1,12 @@
 'use strict';
 
-angular.module('myApp', ['ngTouch'])
+angular.module('myApp', ['ngTouch', 'ngDragDrop'])
   .controller('Ctrl', function (
       $window, $scope, $log, $timeout,
       gameService, scaleBodyService, gameLogic) {
 
-    /*
-    Audio
-    */
+    var moveAudio = new Audio('audio/move.wav');
+    moveAudio.load();
 
     function sendComputerMove() {
       var row = $scope.state.delta.row,
@@ -39,10 +38,9 @@ angular.module('myApp', ['ngTouch'])
         $scope.pieces = [{BR: [7, 0], GR: [7, 1], RE: [7, 2], YE: [7, 3], PI: [7, 4], PU: [7, 5], BL: [7, 6], OR: [7, 7]},
                          {OR: [0, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [0, 4], RE: [0, 5], GR: [0, 6], BR: [0, 7]}];
       }
-
-      /*
-      Play audio
-      */
+      else {
+        moveAudio.play();
+      }
 
       //state after the previous move, will used in this createMove
       $scope.state = params.stateAfterMove;
@@ -170,6 +168,10 @@ angular.module('myApp', ['ngTouch'])
 
     updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex: -2});
 
+    $scope.drag = function () {
+      console.log("drag");
+    }
+
     $scope.cellClicked = function (row, col) {
       //every time you click on a cell, the originally selected piece will be unselected
       if (selectedPiece.length !== 0) {
@@ -258,7 +260,6 @@ angular.module('myApp', ['ngTouch'])
         var move = gameLogic.createMove($scope.state, row, col, $scope.pieceColor, $scope.turnIndex);
         $scope.canMakeSecondClick = false;
         $scope.isYourTurn = false; // to prevent making another move
-        // TODO: show animations and only then send makeMove.
         gameService.makeMove(move);
       } catch (e) {
         //if a player fails to make a valid second click, he has to start again from the first click
