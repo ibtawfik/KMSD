@@ -23,13 +23,13 @@
 <body ng-controller="Ctrl">
   <table>
     <tr ng-repeat="row in uiBoard track by $index">
-      <td ng-repeat="cell in row track by $index" 
+      <td ng-repeat="cell in row track by $index"
         bgcolor="{{cell.color}}"
         ng-class="{cell: true}"
         ng-click="cellClicked($parent.$index, $index)">
         <img ng-src="{{cell.piece === '' ? '' : (cell.piece + (!cell.isSelected ? '':'_selected') + '.png')}}"
         ng-show="!cell.isEmpty"
-        ng-class="{balck: cell.isPlayer1, white: cell.isPlayer0}"/>
+        ng-class="{black: cell.isPlayer1, white: cell.isPlayer0}"/>
       </td> 
     </tr>
   </table>
