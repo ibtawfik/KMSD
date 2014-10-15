@@ -68,12 +68,18 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
                             isRedPiece: false,
                             isGreenPiece: false,
                             isBrownPiece: false,
+                            //image path
                             piece: '',
 
+                            //color of grid
                             color: '',
+
+                            //color of piece
+                            pieceColor: '',
 
                             isEmpty: true,
                             isSelected: false,
+                            isDroppable: false,
                             row: -1,
                             col: -1
                           };
@@ -103,25 +109,32 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
           c = $scope.pieces[0][piece][1];
           $scope.uiBoard[r][c].isEmpty = false;
           $scope.uiBoard[r][c].isPlayer0 = true;
+          $scope.uiBoard[r][c].pieceColor = piece;
           switch(piece) {
-            case 'OR': $scope.uiBoard[r][c].isOrangePiece = true; break;
-            case 'BL': $scope.uiBoard[r][c].isBluePiece = true; break;
-            case 'PU': $scope.uiBoard[r][c].isPurplePiece = true; break;
-            case 'PI': $scope.uiBoard[r][c].isPinkPiece = true; break;
-            case 'YE': $scope.uiBoard[r][c].isYellowPiece = true; break;
-            case 'RE': $scope.uiBoard[r][c].isRedPiece = true; break;
-            case 'GR': $scope.uiBoard[r][c].isGreenPiece = true; break;
-            case 'BR': $scope.uiBoard[r][c].isBrownPiece = true; break;
-          }
-          switch(piece) {
-            case 'OR': $scope.uiBoard[r][c].piece = 'img/white_orange'; break;
-            case 'BL': $scope.uiBoard[r][c].piece = 'img/white_blue'; break;
-            case 'PU': $scope.uiBoard[r][c].piece = 'img/white_purple'; break;
-            case 'PI': $scope.uiBoard[r][c].piece = 'img/white_pink'; break;
-            case 'YE': $scope.uiBoard[r][c].piece = 'img/white_yellow'; break;
-            case 'RE': $scope.uiBoard[r][c].piece = 'img/white_red'; break;
-            case 'GR': $scope.uiBoard[r][c].piece = 'img/white_green'; break;
-            case 'BR': $scope.uiBoard[r][c].piece = 'img/white_brown'; break;
+            case 'OR': $scope.uiBoard[r][c].isOrangePiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/white_orange';
+                       break;
+            case 'BL': $scope.uiBoard[r][c].isBluePiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/white_blue';
+                       break;
+            case 'PU': $scope.uiBoard[r][c].isPurplePiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/white_purple'; 
+                       break;
+            case 'PI': $scope.uiBoard[r][c].isPinkPiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/white_pink'; 
+                       break;
+            case 'YE': $scope.uiBoard[r][c].isYellowPiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/white_yellow'; 
+                       break;
+            case 'RE': $scope.uiBoard[r][c].isRedPiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/white_red'; 
+                       break;
+            case 'GR': $scope.uiBoard[r][c].isGreenPiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/white_green'; 
+                       break;
+            case 'BR': $scope.uiBoard[r][c].isBrownPiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/white_brown'; 
+                       break;
           }
         }
       }
@@ -131,25 +144,32 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
           c = $scope.pieces[1][piece][1];
           $scope.uiBoard[r][c].isEmpty = false;
           $scope.uiBoard[r][c].isPlayer1 = true;
+          $scope.uiBoard[r][c].pieceColor = piece;
           switch(piece) {
-            case 'OR': $scope.uiBoard[r][c].isOrangePiece = true; break;
-            case 'BL': $scope.uiBoard[r][c].isBluePiece = true; break;
-            case 'PU': $scope.uiBoard[r][c].isPurplePiece = true; break;
-            case 'PI': $scope.uiBoard[r][c].isPinkPiece = true; break;
-            case 'YE': $scope.uiBoard[r][c].isYellowPiece = true; break;
-            case 'RE': $scope.uiBoard[r][c].isRedPiece = true; break;
-            case 'GR': $scope.uiBoard[r][c].isGreenPiece = true; break;
-            case 'BR': $scope.uiBoard[r][c].isBrownPiece = true; break;
-          }
-          switch(piece) {
-            case 'OR': $scope.uiBoard[r][c].piece = 'img/black_orange'; break;
-            case 'BL': $scope.uiBoard[r][c].piece = 'img/black_blue'; break;
-            case 'PU': $scope.uiBoard[r][c].piece = 'img/black_purple'; break;
-            case 'PI': $scope.uiBoard[r][c].piece = 'img/black_pink'; break;
-            case 'YE': $scope.uiBoard[r][c].piece = 'img/black_yellow'; break;
-            case 'RE': $scope.uiBoard[r][c].piece = 'img/black_red'; break;
-            case 'GR': $scope.uiBoard[r][c].piece = 'img/black_green'; break;
-            case 'BR': $scope.uiBoard[r][c].piece = 'img/black_brown'; break;
+            case 'OR': $scope.uiBoard[r][c].isOrangePiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/black_orange';
+                       break;
+            case 'BL': $scope.uiBoard[r][c].isBluePiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/black_blue';
+                       break;
+            case 'PU': $scope.uiBoard[r][c].isPurplePiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/black_purple'; 
+                       break;
+            case 'PI': $scope.uiBoard[r][c].isPinkPiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/black_pink'; 
+                       break;
+            case 'YE': $scope.uiBoard[r][c].isYellowPiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/black_yellow'; 
+                       break;
+            case 'RE': $scope.uiBoard[r][c].isRedPiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/black_red'; 
+                       break;
+            case 'GR': $scope.uiBoard[r][c].isGreenPiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/black_green'; 
+                       break;
+            case 'BR': $scope.uiBoard[r][c].isBrownPiece = true;
+                       $scope.uiBoard[r][c].piece = 'img/black_brown'; 
+                       break;
           }
         }
       }
@@ -157,6 +177,26 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
       $scope.isYourTurn = params.turnIndexAfterMove >= 0 && // game is ongoing
         params.yourPlayerIndex === params.turnIndexAfterMove; // it's my turn
       $scope.turnIndex = params.turnIndexAfterMove;
+
+      //if a player has no legal move to make, then automatically make the default move
+      if ($scope.state.delta !== undefined && params.turnIndexAfterMove >= 0){
+        r = $scope.state.delta.row;
+        c = $scope.state.delta.col;
+        var color = gridColors[r][c];
+
+        if (gameLogic.noLegalMove($scope.state.board, $scope.pieces, $scope.turnIndex, color)) {
+          r = $scope.pieces[$scope.turnIndex][color][0];
+          c = $scope.pieces[$scope.turnIndex][color][1];
+          var move = [{setTurn: {turnIndex: 1 - $scope.turnIndex}},
+              {set: {key: 'pieces', value: $scope.pieces}},
+              {set: {key: 'board', value: $scope.state.board}},
+              {set: {key: 'delta', value: {color: color,
+               row: r, col: c}}}];
+
+          $scope.isYourTurn = false; // to prevent making another move
+          gameService.makeMove(move);
+        }
+      }
 
       // Is it the computer's turn?
       if ($scope.isYourTurn
@@ -168,8 +208,12 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
 
     updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex: -2});
 
-    $scope.drag = function () {
-      console.log("drag");
+    $scope.drag = function (event, ui, cell) {
+      $scope.cellClicked(cell.row, cell.col);
+    }
+
+    $scope.drop = function (event, ui, cell) {
+      $scope.cellClicked(cell.row, cell.col);
     }
 
     $scope.cellClicked = function (row, col) {
@@ -184,13 +228,15 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
         return;
       }
       try {
-        //if the player is not allowed to make the second click, then this is the first click
-        if (!$scope.canMakeSecondClick) {
+        //if clicking on a non-empty cell, then this is the first click
+        if (!$scope.uiBoard[row][col].isEmpty) {
+          //set all cells to be undroppable after a second click, no matter successful or not
+          unDroppableAll();
           $scope.firstClick(row,col);
           return;
         }
-        //if the player is allowed to make the second click, then this is the second click
-        else if ($scope.canMakeSecondClick) {
+        //otherwise, if the player is allowed to make the second click, then this is the second click
+        if ($scope.canMakeSecondClick) {
           $scope.secondClick(row,col);
           return;
         }
@@ -247,7 +293,11 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
         //after successfully making the first click, the player is allowed to make the second click
         $scope.canMakeSecondClick = true;
 
+        //update the droppable target cells
+        updateDroppable(row,col);
+
       } catch (e) {
+        console.log(e);
         $scope.canMakeSecondClick = false;
         return;
       }
@@ -267,6 +317,68 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
         return;
       }
     };
+
+    function updateDroppable(currRow, currCol) {
+      var l = true,
+      f = true,
+      r = true,
+      i = 0,
+      row,
+      col;
+
+      while (l || f || r) {
+        if ($scope.turnIndex === 0) {
+          i = i - 1;
+        }
+        else {
+          i = i + 1;
+        }
+        if (l) {
+          row = currRow + i;
+          col = currCol + i;
+          try {
+            gameLogic.createMove($scope.state, row, col, $scope.uiBoard[currRow][currCol].pieceColor, $scope.turnIndex);
+            $scope.uiBoard[row][col].isDroppable = true;
+          }
+          catch (e) {
+            l = false;
+          }
+        }
+        if (f) {
+          row = currRow + i;
+          col = currCol;
+          try {
+            gameLogic.createMove($scope.state, row, col, $scope.uiBoard[currRow][currCol].pieceColor, $scope.turnIndex);
+            $scope.uiBoard[row][col].isDroppable = true;
+          }
+          catch (e) {
+            f = false;
+          }
+        }
+        if (r) {
+          row = currRow + i;
+          col = currCol - i;
+          try {
+            gameLogic.createMove($scope.state, row, col, $scope.uiBoard[currRow][currCol].pieceColor, $scope.turnIndex);
+            $scope.uiBoard[row][col].isDroppable = true;
+          }
+          catch (e) {
+            r = false;
+          }
+        }
+      }
+    }
+
+    function unDroppableAll() {
+      var r,
+        c;
+
+      for (r = 0; r < 8; r += 1) {
+        for (c = 0; c < 8; c += 1){
+          $scope.uiBoard[r][c].isDroppable = false;
+        }
+      }
+    }
 
     /*
     Functions for animations

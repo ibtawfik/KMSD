@@ -418,6 +418,7 @@ angular.module('myApp').service('gameLogic', function () {
       ]);
   }
 
+  this.noLegalMove = noLegalMove;
   this.createComputerMove = createComputerMove;
   this.createMove = createMove;
   this.isMoveOk = isMoveOk;
