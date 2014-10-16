@@ -29,11 +29,12 @@
         data-drop="{{cell.isDroppable}}"
         jqyoui-droppable="{onDrop: 'drop(cell)'}"
         ng-click="cellClicked($parent.$index, $index)">
-        <div data-drag="true", data-jqyoui-options="{revert: 'invalid'}", jqyoui-draggable="{onStart: 'drag(cell)'}">
-          <img ng-src="{{cell.piece === '' ? '' : (cell.piece + (!cell.isSelected ? '':'_selected') + '.png')}}"
-          ng-show="!cell.isEmpty"
-          ng-class="{blaIck: cell.isPlayer1, white: cell.isPlayer0}"/>
-        </div>
+        <img ng-src="{{cell.piece === '' ? '' : (cell.piece + (!cell.isSelected ? '':'_selected') + '.png')}}"
+        ng-show="!cell.isEmpty"
+        ng-class="{blaIck: cell.isPlayer1, white: cell.isPlayer0}"
+        data-drag="true"
+        data-jqyoui-options="{revert: 'invalid'}"
+        jqyoui-draggable="{onStart: 'drag(cell)'}"/>
       </td> 
     </tr>
   </table>
