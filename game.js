@@ -257,34 +257,19 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
         return;
       }
 
+      if ($scope.state.delta !== undefined) {
+        var r = $scope.state.delta.row,
+          c = $scope.state.delta.col,
+          gridColor = gridColors[r][c];
+
+        if ($scope.uiBoard[row][col].pieceColor !== gridColor) {
+          return;
+        }
+      }
+
       //choose the pieceColor for createMove
       try {
-        $scope.pieceColor = '';
-
-        if ($scope.uiBoard[row][col].isOrangePiece) {
-          $scope.pieceColor = 'OR';
-        }
-        else if ($scope.uiBoard[row][col].isBluePiece) {
-          $scope.pieceColor = 'BL';
-        }
-        else if ($scope.uiBoard[row][col].isRedPiece) {
-          $scope.pieceColor = 'RE';
-        }
-        else if ($scope.uiBoard[row][col].isYellowPiece) {
-          $scope.pieceColor = 'YE';
-        }
-        else if ($scope.uiBoard[row][col].isGreenPiece) {
-          $scope.pieceColor = 'GR';
-        }
-        else if ($scope.uiBoard[row][col].isBrownPiece) {
-          $scope.pieceColor = 'BR';
-        }
-        else if ($scope.uiBoard[row][col].isPurplePiece) {
-          $scope.pieceColor = 'PU';
-        }
-        else if ($scope.uiBoard[row][col].isPinkPiece) {
-          $scope.pieceColor = 'PI';
-        }
+        $scope.pieceColor = $scope.uiBoard[row][col].pieceColor;
 
         //successfully select a piece and mark it as selected
         $scope.uiBoard[row][col].isSelected = true;
