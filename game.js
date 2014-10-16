@@ -60,14 +60,6 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
                             isPlayer0: false,
                             isPlayer1: false,
 
-                            isOrangePiece: false,
-                            isBluePiece: false,
-                            isPurplePiece: false,
-                            isPinkPiece: false,
-                            isYellowPiece: false,
-                            isRedPiece: false,
-                            isGreenPiece: false,
-                            isBrownPiece: false,
                             //image path
                             piece: '',
 
@@ -111,29 +103,21 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
           $scope.uiBoard[r][c].isPlayer0 = true;
           $scope.uiBoard[r][c].pieceColor = piece;
           switch(piece) {
-            case 'OR': $scope.uiBoard[r][c].isOrangePiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/white_orange';
+            case 'OR': $scope.uiBoard[r][c].piece = 'img/white_orange';
                        break;
-            case 'BL': $scope.uiBoard[r][c].isBluePiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/white_blue';
+            case 'BL': $scope.uiBoard[r][c].piece = 'img/white_blue';
                        break;
-            case 'PU': $scope.uiBoard[r][c].isPurplePiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/white_purple'; 
+            case 'PU': $scope.uiBoard[r][c].piece = 'img/white_purple'; 
                        break;
-            case 'PI': $scope.uiBoard[r][c].isPinkPiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/white_pink'; 
+            case 'PI': $scope.uiBoard[r][c].piece = 'img/white_pink'; 
                        break;
-            case 'YE': $scope.uiBoard[r][c].isYellowPiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/white_yellow'; 
+            case 'YE': $scope.uiBoard[r][c].piece = 'img/white_yellow'; 
                        break;
-            case 'RE': $scope.uiBoard[r][c].isRedPiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/white_red'; 
+            case 'RE': $scope.uiBoard[r][c].piece = 'img/white_red'; 
                        break;
-            case 'GR': $scope.uiBoard[r][c].isGreenPiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/white_green'; 
+            case 'GR': $scope.uiBoard[r][c].piece = 'img/white_green'; 
                        break;
-            case 'BR': $scope.uiBoard[r][c].isBrownPiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/white_brown'; 
+            case 'BR': $scope.uiBoard[r][c].piece = 'img/white_brown'; 
                        break;
           }
         }
@@ -146,29 +130,21 @@ angular.module('myApp', ['ngTouch', 'ngDragDrop'])
           $scope.uiBoard[r][c].isPlayer1 = true;
           $scope.uiBoard[r][c].pieceColor = piece;
           switch(piece) {
-            case 'OR': $scope.uiBoard[r][c].isOrangePiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/black_orange';
+            case 'OR': $scope.uiBoard[r][c].piece = 'img/black_orange';
                        break;
-            case 'BL': $scope.uiBoard[r][c].isBluePiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/black_blue';
+            case 'BL': $scope.uiBoard[r][c].piece = 'img/black_blue';
                        break;
-            case 'PU': $scope.uiBoard[r][c].isPurplePiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/black_purple'; 
+            case 'PU': $scope.uiBoard[r][c].piece = 'img/black_purple'; 
                        break;
-            case 'PI': $scope.uiBoard[r][c].isPinkPiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/black_pink'; 
+            case 'PI': $scope.uiBoard[r][c].piece = 'img/black_pink'; 
                        break;
-            case 'YE': $scope.uiBoard[r][c].isYellowPiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/black_yellow'; 
+            case 'YE': $scope.uiBoard[r][c].piece = 'img/black_yellow'; 
                        break;
-            case 'RE': $scope.uiBoard[r][c].isRedPiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/black_red'; 
+            case 'RE': $scope.uiBoard[r][c].piece = 'img/black_red'; 
                        break;
-            case 'GR': $scope.uiBoard[r][c].isGreenPiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/black_green'; 
+            case 'GR': $scope.uiBoard[r][c].piece = 'img/black_green'; 
                        break;
-            case 'BR': $scope.uiBoard[r][c].isBrownPiece = true;
-                       $scope.uiBoard[r][c].piece = 'img/black_brown'; 
+            case 'BR': $scope.uiBoard[r][c].piece = 'img/black_brown'; 
                        break;
           }
         }
