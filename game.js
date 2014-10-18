@@ -141,7 +141,7 @@ angular.module('myApp', ['ngTouch'])
       // Is it the computer's turn?
       if ($scope.isYourTurn
           && params.playersInfo[params.yourPlayerIndex].playerId === '') {
-        $timeout(sendComputerMove, 500);
+        $timeout(sendComputerMove, 1000);
       }
     }
 
@@ -306,6 +306,10 @@ angular.module('myApp', ['ngTouch'])
         }
       }
     }*/
+
+    $scope.shouldSlowlyAppear = function(row, col){
+      return $scope.state.delta != undefined && $scope.state.delta.row === row && $scope.state.delta.col === col;
+    }
 
     scaleBodyService.scaleBody({width: 400, height: 400});
 
