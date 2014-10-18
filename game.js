@@ -5,6 +5,7 @@ angular.module('myApp', ['ngTouch'])
       $window, $scope, $log, $timeout,
       gameService, scaleBodyService, gameLogic) {
 
+    //load audio
     var moveAudio = new Audio('audio/move.wav');
     moveAudio.load();
 
@@ -71,7 +72,9 @@ angular.module('myApp', ['ngTouch'])
 
                             isEmpty: true,
                             isSelected: false,
-                            isDroppable: false,
+
+                            //isDroppable: false,
+                            
                             row: -1,
                             col: -1
                           };
@@ -177,20 +180,20 @@ angular.module('myApp', ['ngTouch'])
       // Is it the computer's turn?
       if ($scope.isYourTurn
           && params.playersInfo[params.yourPlayerIndex].playerId === '') {
-        // Wait 500 milliseconds until animation ends.
         $timeout(sendComputerMove, 500);
       }
     }
 
     updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex: -2});
 
-    $scope.drag = function (event, ui, cell) {
+    //callback functions handling drag and drop
+    /*$scope.drag = function (event, ui, cell) {
       $scope.cellClicked(cell.row, cell.col);
     }
 
     $scope.drop = function (event, ui, cell) {
       $scope.cellClicked(cell.row, cell.col);
-    }
+    }*/
 
     $scope.cellClicked = function (row, col) {
       //every time you click on a cell, the originally selected piece will be unselected
@@ -206,8 +209,10 @@ angular.module('myApp', ['ngTouch'])
       try {
         //if clicking on a non-empty cell, then this is the first click
         if (!$scope.uiBoard[row][col].isEmpty) {
-          //set all cells to be undroppable after a second click, no matter successful or not
-          unDroppableAll();
+
+          //set all cells to be undroppable before the first click
+          //unDroppableAll();
+
           $scope.firstClick(row,col);
           return;
         }
@@ -233,6 +238,7 @@ angular.module('myApp', ['ngTouch'])
         return;
       }
 
+      //can only select the correct color
       if ($scope.state.delta !== undefined) {
         var r = $scope.state.delta.row,
           c = $scope.state.delta.col,
@@ -254,11 +260,10 @@ angular.module('myApp', ['ngTouch'])
         //after successfully making the first click, the player is allowed to make the second click
         $scope.canMakeSecondClick = true;
 
-        //update the droppable target cells
-        updateDroppable(row,col);
+        //update the droppable target cells based on the piece selected
+        //updateDroppable(row,col);
 
       } catch (e) {
-        console.log(e);
         $scope.canMakeSecondClick = false;
         return;
       }
@@ -279,7 +284,7 @@ angular.module('myApp', ['ngTouch'])
       }
     };
 
-    function updateDroppable(currRow, currCol) {
+    /*function updateDroppable(currRow, currCol) {
       var l = true,
       f = true,
       r = true,
@@ -339,11 +344,7 @@ angular.module('myApp', ['ngTouch'])
           $scope.uiBoard[r][c].isDroppable = false;
         }
       }
-    }
-
-    /*
-    Functions for animations
-    */
+    }*/
 
     scaleBodyService.scaleBody({width: 400, height: 400});
 
