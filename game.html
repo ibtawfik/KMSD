@@ -26,6 +26,7 @@
         bgcolor="{{cell.color}}"
         ng-class="{cell: true}"
         ng-click="cellClicked($parent.$index, $index)">
+        <div ng-class="{placetaker: true}">
         <div ng-class="{selected: cell.isSelected, not_selected: !cell.isSelected}"
           ng-show="!cell.isEmpty">
           <div ng-class="{slowlyAppear: shouldSlowlyAppear($parent.$index, $index), black_player: cell.isPlayer1, white_player: cell.isPlayer0}"
@@ -33,6 +34,7 @@
             <div ng-class="cell.pieceColor" ng-show="!cell.isEmpty">
             </div>
           </div>
+        </div>
         </div>
       </td> 
     </tr>

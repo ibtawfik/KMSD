@@ -42,11 +42,22 @@ body {
   border-radius: 20px;
 }
 
+.placetaker {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+}
+
 .selected {
   width: 44px;
   height: 44px;
   background: #75FF47;
   position: relative;
+  top: 3px;
   left: 3px;
   
   -webkit-border-radius: 22px;
@@ -58,6 +69,7 @@ body {
   width: 44px;
   height: 44px;
   position: relative;
+  top: 3px;
   left: 3px;
   
   -webkit-border-radius: 22px;
