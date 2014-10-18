@@ -10,7 +10,6 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-touch.min.js"></script>
-  <script src="http://yoav-zibin.github.io/emulator/angular-dragdrop.1.0.8.min.js"></script>
 
   <script src="game.js"></script>
   <script src="gameLogic.js"></script>
@@ -26,15 +25,10 @@
       <td ng-repeat="cell in row track by $index"
         bgcolor="{{cell.color}}"
         ng-class="{cell: true}"
-        data-drop="{{cell.isDroppable}}"
-        jqyoui-droppable="{onDrop: 'drop(cell)'}"
         ng-click="cellClicked($parent.$index, $index)">
         <img ng-src="{{cell.piece === '' ? '' : (cell.piece + (!cell.isSelected ? '':'_selected') + '.png')}}"
         ng-show="!cell.isEmpty"
-        ng-class="{blaIck: cell.isPlayer1, white: cell.isPlayer0}"
-        data-drag="true"
-        data-jqyoui-options="{revert: 'invalid'}"
-        jqyoui-draggable="{onStart: 'drag(cell)'}"/>
+        ng-class="{black: cell.isPlayer1, white: cell.isPlayer0}"/>
       </td> 
     </tr>
   </table>

@@ -8,7 +8,6 @@ http://yoav-zibin.github.io/emulator/gameService.js
 http://yoav-zibin.github.io/emulator/messageService.js
 http://yoav-zibin.github.io/emulator/scaleBodyService.js
 http://yoav-zibin.github.io/emulator/stateService.js
-http://yoav-zibin.github.io/emulator/angular-dragdrop.1.0.8.min.js
 game.js
 gameLogic.js
 game.css
