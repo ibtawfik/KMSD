@@ -26,9 +26,14 @@
         bgcolor="{{cell.color}}"
         ng-class="{cell: true}"
         ng-click="cellClicked($parent.$index, $index)">
-        <img ng-src="{{cell.piece === '' ? '' : (cell.piece + (!cell.isSelected ? '':'_selected') + '.png')}}"
-        ng-show="!cell.isEmpty"
-        ng-class="{black: cell.isPlayer1, white: cell.isPlayer0}"/>
+        <div ng-class="{selected: cell.isSelected, not_selected: !cell.isSelected}"
+          ng-show="!cell.isEmpty">
+          <div ng-class="{black_player: cell.isPlayer1, white_player: cell.isPlayer0}"
+          ng-show="!cell.isEmpty">
+            <div ng-class="cell.pieceColor" ng-show="!cell.isEmpty">
+            </div>
+          </div>
+        </div>
       </td> 
     </tr>
   </table>

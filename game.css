@@ -16,13 +16,156 @@ body {
   padding: 0px;
 }
 
-.black {
+.black_player {
+  width: 40px;
+  height: 40px;
+  background: black;
   position: relative;
-  right: 2px;
+  top: 2px;
+  left: 2px;
+  
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
 }
 
-.white {
+.white_player {
+  width: 40px;
+  height: 40px;
+  background: white;
   position: relative;
-  right: 2px;
-  top: 4px;
+  top: 2px;
+  left: 2px;
+  
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+
+.selected {
+  width: 44px;
+  height: 44px;
+  background: #75FF47;
+  position: relative;
+  left: 3px;
+  
+  -webkit-border-radius: 22px;
+  -moz-border-radius: 22px;
+  border-radius: 22px;
+}
+
+.not_selected {
+  width: 44px;
+  height: 44px;
+  position: relative;
+  left: 3px;
+  
+  -webkit-border-radius: 22px;
+  -moz-border-radius: 22px;
+  border-radius: 22px;
+}
+
+.OR {
+  width: 30px;
+  height: 30px;
+  background: orange;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+
+}
+
+.RE {
+  width: 30px;
+  height: 30px;
+  background: red;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+.GR {
+  width: 30px;
+  height: 30px;
+  background: green;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+.BR {
+  width: 30px;
+  height: 30px;
+  background: brown;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+.BL {
+  width: 30px;
+  height: 30px;
+  background: blue;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+.YE {
+  width: 30px;
+  height: 30px;
+  background: yellow;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+.PU {
+  width: 30px;
+  height: 30px;
+  background: purple;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+.PI {
+  width: 30px;
+  height: 30px;
+  background: pink;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
 }
