@@ -10,7 +10,7 @@
   <script>
   angular.module('myApp', [])
     .controller('Ctrl', function (scaleBodyService) {
-      scaleBodyService.scaleBody({width: 288, height: 288});
+      scaleBodyService.scaleBody({width: 240, height: 240});
       var src = "game.html";
       if (window.parent === window) {
         src += "?test";

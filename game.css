@@ -3,152 +3,152 @@ table {
 }
 
 .cell {
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border: none;
   margin: 0px;
   padding: 0px;
 }
 
 .black_player {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   background: black;
   position: relative;
-  top: 3px;
-  left: 3px;
+  top: 2px;
+  left: 2px;
   
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
+  -webkit-border-radius: 13px;
+  -moz-border-radius: 13px;
+  border-radius: 13px;
 }
 
 .white_player {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   background: white;
   position: relative;
-  top: 3px;
-  left: 3px;
+  top: 2px;
+  left: 2px;
+  
+  -webkit-border-radius: 13px;
+  -moz-border-radius: 13px;
+  border-radius: 13px;
+}
+
+.placetaker {
+  width: 30px;
+  height: 30px;
+  position: relative;
   
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
 }
 
-.placetaker {
-  width: 36px;
-  height: 36px;
-  position: relative;
-  
-  -webkit-border-radius: 18px;
-  -moz-border-radius: 18px;
-  border-radius: 18px;
-}
-
 .OR {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   background: orange;
   position: relative;
   top: 3px;
   left: 3px;
   
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius: 12px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 
 }
 
 .RE {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   background: red;
   position: relative;
   top: 3px;
   left: 3px;
   
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius: 12px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .GR {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   background: green;
   position: relative;
   top: 3px;
   left: 3px;
   
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius: 12px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .BR {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   background: brown;
   position: relative;
   top: 3px;
   left: 3px;
   
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius: 12px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .BL {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   background: blue;
   position: relative;
   top: 3px;
   left: 3px;
   
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius: 12px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .YE {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   background: yellow;
   position: relative;
   top: 3px;
   left: 3px;
   
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius: 12px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .PU {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   background: purple;
   position: relative;
   top: 3px;
   left: 3px;
   
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius: 12px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .PI {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   background: pink;
   position: relative;
   top: 3px;
   left: 3px;
   
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius: 12px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
 @-webkit-keyframes moveAnimation {
