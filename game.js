@@ -27,9 +27,11 @@ angular.module('myApp', ['ngDraggable'])
       [ 'BR', 'GR', 'RE', 'YE', 'PI', 'PU', 'BL', 'OR' ]
     ];
 
+    /*
     var selectedPiece = [];
 
     $scope.canMakeSecondClick = false;
+    */
 
     //convert gameLogic state to UI state
     function updateUI(params) {
@@ -71,9 +73,11 @@ angular.module('myApp', ['ngDraggable'])
                             id: -1,
 
                             isEmpty: true,
+                            /*
                             isSelected: false,
 
                             isDroppable: false,
+                            */
 
                             ngstyle: {},
 
@@ -158,10 +162,44 @@ angular.module('myApp', ['ngDraggable'])
 
     updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex: -2});
 
+    //callback function handling
     $scope.onDropComplete = function (data, event, row, col) {
-      dragMove(data, row, col);
+      //get the color of piece from piece id
+      switch(data) {
+        case 0: $scope.pieceColor = 'BR'; break;
+        case 1: $scope.pieceColor = 'GR'; break;
+        case 2: $scope.pieceColor = 'RE'; break;
+        case 3: $scope.pieceColor = 'YE'; break;
+        case 4: $scope.pieceColor = 'PI'; break;
+        case 5: $scope.pieceColor = 'PU'; break;
+        case 6: $scope.pieceColor = 'BL'; break;
+        case 7: $scope.pieceColor = 'OR'; break;
+        case 10: $scope.pieceColor = 'OR'; break;
+        case 11: $scope.pieceColor = 'BL'; break;
+        case 12: $scope.pieceColor = 'PU'; break;
+        case 13: $scope.pieceColor = 'PI'; break;
+        case 14: $scope.pieceColor = 'YE'; break;
+        case 15: $scope.pieceColor = 'RE'; break;
+        case 16: $scope.pieceColor = 'GR'; break;
+        case 17: $scope.pieceColor = 'BR'; break;
+      }
+      try {
+        //create move
+        var move = gameLogic.createMove($scope.state, row, col, $scope.pieceColor, $scope.turnIndex);
+        $scope.isYourTurn = false; // to prevent making another move
+        gameService.makeMove(move);
+      } catch (e) {
+        return;
+      }
     }
 
+    /**
+     *
+     *functions handling clicking event
+     *
+     */
+
+    /*
     $scope.cellClicked = function (row, col) {
       //every time you click on a cell, the originally selected piece will be unselected
       if (selectedPiece.length !== 0) {
@@ -254,36 +292,15 @@ angular.module('myApp', ['ngDraggable'])
         return;
       }
     };
+    */
 
-    function dragMove(data, row, col) {
-      switch(data) {
-        case 0: $scope.pieceColor = 'BR'; break;
-        case 1: $scope.pieceColor = 'GR'; break;
-        case 2: $scope.pieceColor = 'RE'; break;
-        case 3: $scope.pieceColor = 'YE'; break;
-        case 4: $scope.pieceColor = 'PI'; break;
-        case 5: $scope.pieceColor = 'PU'; break;
-        case 6: $scope.pieceColor = 'BL'; break;
-        case 7: $scope.pieceColor = 'OR'; break;
-        case 10: $scope.pieceColor = 'OR'; break;
-        case 11: $scope.pieceColor = 'BL'; break;
-        case 12: $scope.pieceColor = 'PU'; break;
-        case 13: $scope.pieceColor = 'PI'; break;
-        case 14: $scope.pieceColor = 'YE'; break;
-        case 15: $scope.pieceColor = 'RE'; break;
-        case 16: $scope.pieceColor = 'GR'; break;
-        case 17: $scope.pieceColor = 'BR'; break;
-      }
-      try {
-        //create move
-        var move = gameLogic.createMove($scope.state, row, col, $scope.pieceColor, $scope.turnIndex);
-        $scope.isYourTurn = false; // to prevent making another move
-        gameService.makeMove(move);
-      } catch (e) {
-        return;
-      }
-    }
+    /**
+     *
+     *functions updating if a cell is droppable
+     *
+     */
 
+    /*
     function updateDroppable(currRow, currCol) {
       var l = true,
       f = true,
@@ -345,7 +362,9 @@ angular.module('myApp', ['ngDraggable'])
         }
       }
     }
+    */
 
+    //create animation effect
     function playAnimation (row, col) {
       var left = (col - $scope.prev_col) * 50 + "px",
         top = (row - $scope.prev_row) * 50 + "px";

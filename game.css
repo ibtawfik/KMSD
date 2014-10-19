@@ -15,8 +15,8 @@ table {
   height: 40px;
   background: black;
   position: relative;
-  top: 2px;
-  left: 2px;
+  top: 5px;
+  left: 5px;
   
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
@@ -28,8 +28,8 @@ table {
   height: 40px;
   background: white;
   position: relative;
-  top: 2px;
-  left: 2px;
+  top: 5px;
+  left: 5px;
   
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
@@ -44,31 +44,6 @@ table {
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   border-radius: 25px;
-}
-
-.selected {
-  width: 44px;
-  height: 44px;
-  background: #75FF47;
-  position: relative;
-  top: 3px;
-  left: 3px;
-  
-  -webkit-border-radius: 22px;
-  -moz-border-radius: 22px;
-  border-radius: 22px;
-}
-
-.not_selected {
-  width: 44px;
-  height: 44px;
-  position: relative;
-  top: 3px;
-  left: 3px;
-  
-  -webkit-border-radius: 22px;
-  -moz-border-radius: 22px;
-  border-radius: 22px;
 }
 
 .OR {
