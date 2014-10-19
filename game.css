@@ -182,19 +182,10 @@ body {
   border-radius: 15px;
 }
 
-
-.slowlyAppear {
-  -webkit-animation: slowlyAppear 1s linear; /* Chrome, Safari, Opera */
-  animation: slowlyAppear 1s linear;
-}
-/* Chrome, Safari, Opera */
-@-webkit-keyframes slowlyAppear {
-  from {opacity: 0;}
-  to {opacity: 1;}
+@-webkit-keyframes moveAnimation {
+  from {top: 0px; left: 0px;}
 }
 
-/* Standard syntax */
-@keyframes slowlyAppear {
-  from {opacity: 0;}
-  to {opacity: 1;}
+@keyframes moveAnimation {
+  from {top: 0px; left: 0px;}
 }

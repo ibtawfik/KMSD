@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('myApp', ['ngTouch'])
-  .controller('Ctrl', function (
+angular.module('myApp', ['ngDraggable'])
+  .controller('DragCtrl', function (
       $window, $scope, $log, $timeout,
-      gameService, scaleBodyService, gameLogic) {
+      gameService, gameLogic) {
 
     //load audio
     var moveAudio = new Audio('audio/move.wav');
@@ -43,7 +43,7 @@ angular.module('myApp', ['ngTouch'])
         moveAudio.play();
       }
 
-      //state after the previous move, will used in this createMove
+      //state after the previous move, will be used in this createMove
       $scope.state = params.stateAfterMove;
 
       //create UI state
@@ -67,10 +67,15 @@ angular.module('myApp', ['ngTouch'])
                             //color of piece
                             pieceColor: '',
 
+                            //unique id of pieces
+                            id: -1,
+
                             isEmpty: true,
                             isSelected: false,
 
-                            //isDroppable: false,
+                            isDroppable: false,
+
+                            ngstyle: {},
 
                             row: -1,
                             col: -1
@@ -95,6 +100,7 @@ angular.module('myApp', ['ngTouch'])
       }
 
       //add pieces to game board by reading from pieces
+      var i = 0;
       for (piece in $scope.pieces[0]) {
         if ($scope.pieces[0].hasOwnProperty(piece)) {
           r = $scope.pieces[0][piece][0];
@@ -102,8 +108,11 @@ angular.module('myApp', ['ngTouch'])
           $scope.uiBoard[r][c].isEmpty = false;
           $scope.uiBoard[r][c].isPlayer0 = true;
           $scope.uiBoard[r][c].pieceColor = piece;
+          $scope.uiBoard[r][c].id = i;
+          i = i + 1;
         }
       }
+      i = 10;
       for (piece in $scope.pieces[1]) {
         if ($scope.pieces[1].hasOwnProperty(piece)) {
           r = $scope.pieces[1][piece][0];
@@ -111,6 +120,8 @@ angular.module('myApp', ['ngTouch'])
           $scope.uiBoard[r][c].isEmpty = false;
           $scope.uiBoard[r][c].isPlayer1 = true;
           $scope.uiBoard[r][c].pieceColor = piece;
+          $scope.uiBoard[r][c].id = i;
+          i = i + 1;
         }
       }
 
@@ -147,14 +158,9 @@ angular.module('myApp', ['ngTouch'])
 
     updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex: -2});
 
-    //callback functions handling drag and drop
-    /*$scope.drag = function (event, ui, cell) {
-      $scope.cellClicked(cell.row, cell.col);
+    $scope.onDropComplete = function (data, event, row, col) {
+      dragMove(data, row, col);
     }
-
-    $scope.drop = function (event, ui, cell) {
-      $scope.cellClicked(cell.row, cell.col);
-    }*/
 
     $scope.cellClicked = function (row, col) {
       //every time you click on a cell, the originally selected piece will be unselected
@@ -172,7 +178,7 @@ angular.module('myApp', ['ngTouch'])
         if (!$scope.uiBoard[row][col].isEmpty) {
 
           //set all cells to be undroppable before the first click
-          //unDroppableAll();
+          unDroppableAll();
 
           $scope.firstClick(row,col);
           return;
@@ -222,7 +228,10 @@ angular.module('myApp', ['ngTouch'])
         $scope.canMakeSecondClick = true;
 
         //update the droppable target cells based on the piece selected
-        //updateDroppable(row,col);
+        updateDroppable(row,col);
+
+        $scope.prev_row = row;
+        $scope.prev_col = col;
 
       } catch (e) {
         $scope.canMakeSecondClick = false;
@@ -237,6 +246,7 @@ angular.module('myApp', ['ngTouch'])
         var move = gameLogic.createMove($scope.state, row, col, $scope.pieceColor, $scope.turnIndex);
         $scope.canMakeSecondClick = false;
         $scope.isYourTurn = false; // to prevent making another move
+        //$scope.uiBoard[$scope.prev_row][$scope.prev_col].ngstyle = playAnimation(row, col);
         gameService.makeMove(move);
       } catch (e) {
         //if a player fails to make a valid second click, he has to start again from the first click
@@ -245,7 +255,36 @@ angular.module('myApp', ['ngTouch'])
       }
     };
 
-    /*function updateDroppable(currRow, currCol) {
+    function dragMove(data, row, col) {
+      switch(data) {
+        case 0: $scope.pieceColor = 'BR'; break;
+        case 1: $scope.pieceColor = 'GR'; break;
+        case 2: $scope.pieceColor = 'RE'; break;
+        case 3: $scope.pieceColor = 'YE'; break;
+        case 4: $scope.pieceColor = 'PI'; break;
+        case 5: $scope.pieceColor = 'PU'; break;
+        case 6: $scope.pieceColor = 'BL'; break;
+        case 7: $scope.pieceColor = 'OR'; break;
+        case 10: $scope.pieceColor = 'OR'; break;
+        case 11: $scope.pieceColor = 'BL'; break;
+        case 12: $scope.pieceColor = 'PU'; break;
+        case 13: $scope.pieceColor = 'PI'; break;
+        case 14: $scope.pieceColor = 'YE'; break;
+        case 15: $scope.pieceColor = 'RE'; break;
+        case 16: $scope.pieceColor = 'GR'; break;
+        case 17: $scope.pieceColor = 'BR'; break;
+      }
+      try {
+        //create move
+        var move = gameLogic.createMove($scope.state, row, col, $scope.pieceColor, $scope.turnIndex);
+        $scope.isYourTurn = false; // to prevent making another move
+        gameService.makeMove(move);
+      } catch (e) {
+        return;
+      }
+    }
+
+    function updateDroppable(currRow, currCol) {
       var l = true,
       f = true,
       r = true,
@@ -305,13 +344,15 @@ angular.module('myApp', ['ngTouch'])
           $scope.uiBoard[r][c].isDroppable = false;
         }
       }
-    }*/
-
-    $scope.shouldSlowlyAppear = function(row, col){
-      return $scope.state.delta != undefined && $scope.state.delta.row === row && $scope.state.delta.col === col;
     }
 
-    scaleBodyService.scaleBody({width: 400, height: 400});
+    function playAnimation (row, col) {
+      var left = (col - $scope.prev_col) * 50 + "px",
+        top = (row - $scope.prev_row) * 50 + "px";
+      return {top: top, left: left, position: "relative",
+              "-webkit-animation": "moveAnimation 1s",
+              "animation": "moveAnimation 1s"};
+    }
 
     gameService.setGame({
       gameDeveloperEmail: "rshen1993@gmail.com",

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="game.appcache" lang="en" ng-app="myApp">
+<html lang="en" ng-app="myApp">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,34 +7,37 @@
   <meta name="description" content="Kamisado game">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+  <!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>-->
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-touch.min.js"></script>
+
+  <script src="http://yoav-zibin.github.io/emulator/ngDraggable.js"></script>
 
   <script src="game.js"></script>
   <script src="gameLogic.js"></script>
   <script src="http://yoav-zibin.github.io/emulator/gameService.js"></script>
   <script src="http://yoav-zibin.github.io/emulator/messageService.js"></script>
-  <script src="http://yoav-zibin.github.io/emulator/scaleBodyService.js"></script>
   <script src="http://yoav-zibin.github.io/emulator/stateService.js"></script>
   <link rel="stylesheet" type="text/css" href="game.css">
 </head>
-<body ng-controller="Ctrl">
+<body ng-controller="DragCtrl">
   <table>
     <tr ng-repeat="row in uiBoard track by $index">
       <td ng-repeat="cell in row track by $index"
         bgcolor="{{cell.color}}"
         ng-class="{cell: true}"
-        ng-click="cellClicked($parent.$index, $index)">
-        <div ng-class="{placetaker: true}">
-        <div ng-class="{selected: cell.isSelected, not_selected: !cell.isSelected}"
-          ng-show="!cell.isEmpty">
-          <div ng-class="{slowlyAppear: shouldSlowlyAppear($parent.$index, $index), black_player: cell.isPlayer1, white_player: cell.isPlayer0}"
-          ng-show="!cell.isEmpty">
-            <div ng-class="cell.pieceColor" ng-show="!cell.isEmpty">
+        ng-drop="true"
+        ng-drop-success="onDropComplete($data,$event,$parent.$index,$index)">
+        <div ng-drag="true" ng-drag-data="cell.id">
+          <div ng-class="{placetaker: true}" ng-style="cell.ngstyle">
+            <div ng-class="{selected: cell.isSelected, not_selected: !cell.isSelected}"
+              ng-show="!cell.isEmpty">
+              <div ng-class="{black_player: cell.isPlayer1, white_player: cell.isPlayer0}"
+              ng-show="!cell.isEmpty">
+                <div ng-class="cell.pieceColor" ng-show="!cell.isEmpty">
+                </div>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </td> 
     </tr>
