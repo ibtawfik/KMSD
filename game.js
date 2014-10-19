@@ -10,10 +10,18 @@ angular.module('myApp', ['ngDraggable'])
     moveAudio.load();
 
     function sendComputerMove() {
-      var row = $scope.state.delta.row,
-        col = $scope.state.delta.col,
-        color = gridColors[row][col];
-      gameService.makeMove(gameLogic.createComputerMove($scope.state, color, $scope.turnIndex));
+      var r = $scope.state.delta.row,
+        c = $scope.state.delta.col,
+        color = gridColors[r][c];
+      var move = gameLogic.createComputerMove($scope.state, color, $scope.turnIndex),
+        prev_row = $scope.pieces[$scope.turnIndex][color][0],
+        prev_col = $scope.pieces[$scope.turnIndex][color][1],
+        delta = move[3];
+      $scope.curr_row = delta.row;
+      $scope.curr_col = delta.col;
+      $scope.uiBoard[prev_row][prev_col].isMoving = true;
+
+      gameService.makeMove(move);
     }
 
     var gridColors = [
@@ -79,7 +87,7 @@ angular.module('myApp', ['ngDraggable'])
                             isDroppable: false,
                             */
 
-                            ngstyle: {},
+                            isMoving: false,
 
                             row: -1,
                             col: -1
@@ -364,10 +372,22 @@ angular.module('myApp', ['ngDraggable'])
     }
     */
 
+    $scope.getngstyle = function (row, col) {
+      if ($scope.uiBoard[row][col].isMoving) {
+        var left = ($scope.curr_col - col) * 50 + "px",
+          top = ($scope.curr_row - row) * 50 + "px";
+        return {top: top, left: left, position: "relative",
+                "-webkit-animation": "moveAnimation 1s",
+                "animation": "moveAnimation 1s"};
+        console.log("ngstyle");
+      }
+      return {};
+    }
+
     //create animation effect
-    function playAnimation (row, col) {
-      var left = (col - $scope.prev_col) * 50 + "px",
-        top = (row - $scope.prev_row) * 50 + "px";
+    function playAnimation (prev_row, prev_col, row, col) {
+      var left = (col - prev_col) * 50 + "px",
+        top = (row - prev_row) * 50 + "px";
       return {top: top, left: left, position: "relative",
               "-webkit-animation": "moveAnimation 1s",
               "animation": "moveAnimation 1s"};
