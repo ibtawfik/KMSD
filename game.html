@@ -16,7 +16,6 @@
   <script src="http://yoav-zibin.github.io/emulator/gameService.js"></script>
   <script src="http://yoav-zibin.github.io/emulator/messageService.js"></script>
   <script src="http://yoav-zibin.github.io/emulator/stateService.js"></script>
-  <link rel="stylesheet" type="text/css" href="http://yoav-zibin.github.io/emulator/main.css">
   <link rel="stylesheet" type="text/css" href="game.css">
 </head>
 <body ng-controller="Ctrl">
@@ -28,7 +27,7 @@
         ng-drop="true"
         ng-drop-success="onDropComplete($data,$event,$parent.$index,$index)">
         <div ng-drag="true" ng-drag-data="cell.id">
-          <div ng-class="{placetaker: true}" ng-style="getngstyle($parent.$index,$index)">
+          <div ng-class="{placetaker: true}" ng-style="cell.ngstyle">
             <div ng-class="{black_player: cell.isPlayer1, white_player: cell.isPlayer0}"
             ng-show="!cell.isEmpty">
               <div ng-class="cell.pieceColor" ng-show="!cell.isEmpty">

@@ -13,15 +13,19 @@ angular.module('myApp', ['ngDraggable'])
       var r = $scope.state.delta.row,
         c = $scope.state.delta.col,
         color = gridColors[r][c];
-      var move = gameLogic.createComputerMove($scope.state, color, $scope.turnIndex),
+      var move = gameLogic.createComputerMove($scope.state, color, $scope.turnIndex),//create the move to be made
+        //information needed to create animation
         prev_row = $scope.pieces[$scope.turnIndex][color][0],
         prev_col = $scope.pieces[$scope.turnIndex][color][1],
-        delta = move[3];
-      $scope.curr_row = delta.row;
-      $scope.curr_col = delta.col;
-      $scope.uiBoard[prev_row][prev_col].isMoving = true;
+        delta = move[3].set.value,
+        curr_row = delta.row,
+        curr_col = delta.col;
 
-      gameService.makeMove(move);
+      //create animation
+      $scope.uiBoard[prev_row][prev_col].ngstyle = getngstyle(curr_row, curr_col, prev_row, prev_col);
+
+      //wait for animation to be played
+      $timeout(function(){gameService.makeMove(move);},500);
     }
 
     var gridColors = [
@@ -83,11 +87,9 @@ angular.module('myApp', ['ngDraggable'])
                             isEmpty: true,
                             /*
                             isSelected: false,
-
-                            isDroppable: false,
                             */
 
-                            isMoving: false,
+                            ngstyle: {},
 
                             row: -1,
                             col: -1
@@ -161,16 +163,16 @@ angular.module('myApp', ['ngDraggable'])
         }
       }
 
-      // Is it the computer's turn?
+      //is it the computer's turn?
       if ($scope.isYourTurn
           && params.playersInfo[params.yourPlayerIndex].playerId === '') {
-        $timeout(sendComputerMove, 1000);
+        $timeout(sendComputerMove, 500);
       }
     }
 
     updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex: -2});
 
-    //callback function handling
+    //callback function handling drag and drop
     $scope.onDropComplete = function (data, event, row, col) {
       //get the color of piece from piece id
       switch(data) {
@@ -302,95 +304,13 @@ angular.module('myApp', ['ngDraggable'])
     };
     */
 
-    /**
-     *
-     *functions updating if a cell is droppable
-     *
-     */
-
-    /*
-    function updateDroppable(currRow, currCol) {
-      var l = true,
-      f = true,
-      r = true,
-      i = 0,
-      row,
-      col;
-
-      while (l || f || r) {
-        if ($scope.turnIndex === 0) {
-          i = i - 1;
-        }
-        else {
-          i = i + 1;
-        }
-        if (l) {
-          row = currRow + i;
-          col = currCol + i;
-          try {
-            gameLogic.createMove($scope.state, row, col, $scope.uiBoard[currRow][currCol].pieceColor, $scope.turnIndex);
-            $scope.uiBoard[row][col].isDroppable = true;
-          }
-          catch (e) {
-            l = false;
-          }
-        }
-        if (f) {
-          row = currRow + i;
-          col = currCol;
-          try {
-            gameLogic.createMove($scope.state, row, col, $scope.uiBoard[currRow][currCol].pieceColor, $scope.turnIndex);
-            $scope.uiBoard[row][col].isDroppable = true;
-          }
-          catch (e) {
-            f = false;
-          }
-        }
-        if (r) {
-          row = currRow + i;
-          col = currCol - i;
-          try {
-            gameLogic.createMove($scope.state, row, col, $scope.uiBoard[currRow][currCol].pieceColor, $scope.turnIndex);
-            $scope.uiBoard[row][col].isDroppable = true;
-          }
-          catch (e) {
-            r = false;
-          }
-        }
-      }
-    }
-
-    function unDroppableAll() {
-      var r,
-        c;
-
-      for (r = 0; r < 8; r += 1) {
-        for (c = 0; c < 8; c += 1){
-          $scope.uiBoard[r][c].isDroppable = false;
-        }
-      }
-    }
-    */
-
-    $scope.getngstyle = function (row, col) {
-      if ($scope.uiBoard[row][col].isMoving) {
-        var left = ($scope.curr_col - col) * 50 + "px",
-          top = ($scope.curr_row - row) * 50 + "px";
-        return {top: top, left: left, position: "relative",
-                "-webkit-animation": "moveAnimation 1s",
-                "animation": "moveAnimation 1s"};
-        console.log("ngstyle");
-      }
-      return {};
-    }
-
-    //create animation effect
-    function playAnimation (prev_row, prev_col, row, col) {
-      var left = (col - prev_col) * 50 + "px",
-        top = (row - prev_row) * 50 + "px";
+    //function used to create animation
+    function getngstyle (curr_row, curr_col, row, col) {
+      var left = (curr_col - col) * 30 + "px",
+        top = (curr_row - row) * 30 + "px";
       return {top: top, left: left, position: "relative",
-              "-webkit-animation": "moveAnimation 1s",
-              "animation": "moveAnimation 1s"};
+              "-webkit-animation": "moveAnimation 0.5s",
+              "animation": "moveAnimation 0.5s"};
     }
 
     gameService.setGame({
