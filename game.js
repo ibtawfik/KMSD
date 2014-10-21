@@ -88,6 +88,7 @@ angular.module('myApp', ['ngDraggable'])
                             /*
                             isSelected: false,
                             */
+                            isDraggable: false,
 
                             ngstyle: {},
 
@@ -138,6 +139,8 @@ angular.module('myApp', ['ngDraggable'])
           i = i + 1;
         }
       }
+
+      updateDraggable();
 
       $scope.isYourTurn = params.turnIndexAfterMove >= 0 && // game is ongoing
         params.yourPlayerIndex === params.turnIndexAfterMove; // it's my turn
@@ -303,6 +306,34 @@ angular.module('myApp', ['ngDraggable'])
       }
     };
     */
+
+    //update if pieces are draggable based on rule
+    function updateDraggable () {
+      //opponent has made move and movable color is limited
+      if ($scope.state.delta !== undefined) {
+        var r = $scope.state.delta.row,
+          c = $scope.state.delta.col,
+          gridColor = gridColors[r][c];
+
+        var row = $scope.pieces[1-$scope.turnIndex][gridColor][0],
+          col = $scope.pieces[1-$scope.turnIndex][gridColor][1];
+        $scope.uiBoard[row][col].isDraggable = true;
+      }
+      //game just started
+      else {
+        var row,
+          col;
+        if ($scope.turnIndex === 0) {
+          row = 7;
+        }
+        else {
+          row = 0;
+        }
+        for (col = 0; col < 8; col = col + 1) {
+          $scope.uiBoard[row][col].isDraggable = true;
+        }
+      }
+    }
 
     //function used to create animation
     function getngstyle (curr_row, curr_col, row, col) {
