@@ -140,7 +140,10 @@ angular.module('myApp', ['ngDraggable'])
         }
       }
 
-      updateDraggable();
+      //if the game is ongoing, update the draggable pieces
+      if (params.turnIndexAfterMove >= 0) {
+        updateDraggable();
+      }
 
       $scope.isYourTurn = params.turnIndexAfterMove >= 0 && // game is ongoing
         params.yourPlayerIndex === params.turnIndexAfterMove; // it's my turn

@@ -19,6 +19,22 @@ html, body {
   padding: 0px;
 }
 
+.placetaker {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+/*****************************
+
+Player Indicators
+
+*****************************/
+
 .black_player {
   width: 26px;
   height: 26px;
@@ -45,15 +61,11 @@ html, body {
   border-radius: 13px;
 }
 
-.placetaker {
-  width: 30px;
-  height: 30px;
-  position: relative;
-  
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-}
+/*****************************
+
+Piece Colors
+
+*****************************/
 
 .OR {
   width: 20px;
@@ -160,10 +172,51 @@ html, body {
   border-radius: 10px;
 }
 
+/*****************************
+
+Animations
+
+*****************************/
+
 @-webkit-keyframes moveAnimation {
   from {top: 0px; left: 0px;}
 }
 
 @keyframes moveAnimation {
   from {top: 0px; left: 0px;}
+}
+
+.blink_me {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.2; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.2; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.2; }
+    100% { opacity: 1.0; }
 }
