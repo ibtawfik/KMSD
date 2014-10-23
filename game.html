@@ -26,17 +26,14 @@
         ng-class="{cell: true}"
         ng-drop="true"
         ng-drop-success="onDropComplete($data,$event,$parent.$index,$index)">
-        <!--<div ng-drag="cell.isDraggable" ng-drag-data="cell.id">
+        <div ng-drag="cell.isDraggable && isYourTurn" ng-drag-data="cell.id">
           <div ng-class="{placetaker: true}" ng-style="cell.ngstyle">
-            <div ng-class="{black_player: cell.isPlayer1, white_player: cell.isPlayer0, blink_me: cell.isDraggable}"
+            <div ng-class="{black_player: cell.isPlayer1, white_player: cell.isPlayer0, blink_me: cell.isDraggable && isYourTurn}"
             ng-show="!cell.isEmpty">
               <div ng-class="cell.pieceColor" ng-show="!cell.isEmpty">
               </div>
             </div>
           </div>
-        </div>-->
-        <div ng-show="isYourTurn">
-          {{cell.isEmpty}}
         </div>
       </td> 
     </tr>

@@ -25,7 +25,7 @@ angular.module('myApp', ['ngDraggable'])
       $scope.uiBoard[prev_row][prev_col].ngstyle = getngstyle(curr_row, curr_col, prev_row, prev_col);
 
       //wait for animation to be played
-      $timeout(function(){gameService.makeMove(move);},500);
+      //$timeout(function(){gameService.makeMove(move);},500);
     }
 
     var gridColors = [
@@ -76,6 +76,8 @@ angular.module('myApp', ['ngDraggable'])
                             isPlayer0: false,
                             isPlayer1: false,
 
+                            playerIndex: -1,
+
                             //color of grid
                             color: '',
 
@@ -123,6 +125,7 @@ angular.module('myApp', ['ngDraggable'])
           c = $scope.pieces[0][piece][1];
           $scope.uiBoard[r][c].isEmpty = false;
           $scope.uiBoard[r][c].isPlayer0 = true;
+          $scope.uiBoard[r][c].playerIndex = 0;
           $scope.uiBoard[r][c].pieceColor = piece;
           $scope.uiBoard[r][c].id = i;
           i = i + 1;
@@ -135,6 +138,7 @@ angular.module('myApp', ['ngDraggable'])
           c = $scope.pieces[1][piece][1];
           $scope.uiBoard[r][c].isEmpty = false;
           $scope.uiBoard[r][c].isPlayer1 = true;
+          $scope.uiBoard[r][c].playerIndex = 1;
           $scope.uiBoard[r][c].pieceColor = piece;
           $scope.uiBoard[r][c].id = i;
           i = i + 1;
@@ -347,6 +351,16 @@ angular.module('myApp', ['ngDraggable'])
       return {top: top, left: left, position: "relative",
               "-webkit-animation": "moveAnimation 0.5s",
               "animation": "moveAnimation 0.5s"};
+    }
+
+    $scope.draggable = function (row, col) {
+      if ($scope.uiBoard[row][col].isDraggable) {
+        if ($scope.isYourTurn) {
+          return true;
+        }
+        return false;
+      }
+      return false;
     }
 
     gameService.setGame({
