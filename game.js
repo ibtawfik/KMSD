@@ -151,7 +151,7 @@ angular.module('myApp', ['ngDraggable'])
       $scope.turnIndex = params.turnIndexAfterMove;
 
       //if the game is ongoing, update the draggable pieces
-      if ($scope.isYourTurn) {
+      if (params.turnIndexAfterMove >= 0) {
         updateDraggable();
       }
 
@@ -351,16 +351,6 @@ angular.module('myApp', ['ngDraggable'])
       return {top: top, left: left, position: "relative",
               "-webkit-animation": "moveAnimation 0.5s",
               "animation": "moveAnimation 0.5s"};
-    }
-
-    $scope.draggable = function (row, col) {
-      if ($scope.uiBoard[row][col].isDraggable) {
-        if ($scope.isYourTurn) {
-          return true;
-        }
-        return false;
-      }
-      return false;
     }
 
     gameService.setGame({
