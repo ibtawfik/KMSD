@@ -25,7 +25,7 @@ angular.module('myApp', ['ngDraggable'])
       $scope.uiBoard[prev_row][prev_col].ngstyle = getngstyle(curr_row, curr_col, prev_row, prev_col);
 
       //wait for animation to be played
-      //$timeout(function(){gameService.makeMove(move);},500);
+      $timeout(function(){gameService.makeMove(move);},500);
     }
 
     var gridColors = [
