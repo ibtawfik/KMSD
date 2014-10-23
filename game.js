@@ -47,6 +47,7 @@ angular.module('myApp', ['ngDraggable'])
 
     //convert gameLogic state to UI state
     function updateUI(params) {
+
       //pieces information, used to create UI state
       $scope.pieces = params.stateAfterMove.pieces;
       if ($scope.pieces === undefined) {
@@ -140,14 +141,15 @@ angular.module('myApp', ['ngDraggable'])
         }
       }
 
-      //if the game is ongoing, update the draggable pieces
-      if (params.turnIndexAfterMove >= 0) {
-        updateDraggable();
-      }
 
       $scope.isYourTurn = params.turnIndexAfterMove >= 0 && // game is ongoing
         params.yourPlayerIndex === params.turnIndexAfterMove; // it's my turn
       $scope.turnIndex = params.turnIndexAfterMove;
+
+      //if the game is ongoing, update the draggable pieces
+      if ($scope.isYourTurn) {
+        updateDraggable();
+      }
 
       //if a player has no legal move to make, then automatically make the default move
       if ($scope.state.delta !== undefined && params.turnIndexAfterMove >= 0){
@@ -318,8 +320,8 @@ angular.module('myApp', ['ngDraggable'])
           c = $scope.state.delta.col,
           gridColor = gridColors[r][c];
 
-        var row = $scope.pieces[1-$scope.turnIndex][gridColor][0],
-          col = $scope.pieces[1-$scope.turnIndex][gridColor][1];
+        var row = $scope.pieces[$scope.turnIndex][gridColor][0],
+          col = $scope.pieces[$scope.turnIndex][gridColor][1];
         $scope.uiBoard[row][col].isDraggable = true;
       }
       //game just started
