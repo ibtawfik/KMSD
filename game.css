@@ -39,7 +39,7 @@ Player Indicators
 .black_player {
   width: 26px;
   height: 26px;
-  background: black;
+  background: #342E16;
   position: relative;
   top: 2px;
   left: 2px;
@@ -52,7 +52,7 @@ Player Indicators
 .white_player {
   width: 26px;
   height: 26px;
-  background: white;
+  background: #FBF9D2;
   position: relative;
   top: 2px;
   left: 2px;
