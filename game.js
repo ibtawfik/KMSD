@@ -103,14 +103,14 @@ angular.module('myApp', ['ngDraggable'])
           currSquare.col = c;
 
           switch(gridColor) {
-            case 'OR': currSquare.color = 'orange'; break;
-            case 'BL': currSquare.color = 'blue'; break;
-            case 'PU': currSquare.color = 'purple'; break;
-            case 'PI': currSquare.color = 'pink'; break;
-            case 'YE': currSquare.color = 'yellow'; break;
-            case 'RE': currSquare.color = 'red'; break;
-            case 'GR': currSquare.color = 'green'; break;
-            case 'BR': currSquare.color = 'brown'; break;
+            case 'OR': currSquare.color = 'FFA858'; break;
+            case 'BL': currSquare.color = '39455A'; break;
+            case 'PU': currSquare.color = '890E53'; break;
+            case 'PI': currSquare.color = 'AC768F'; break;
+            case 'YE': currSquare.color = 'EAC761'; break;
+            case 'RE': currSquare.color = 'F75E50'; break;
+            case 'GR': currSquare.color = '84A586'; break;
+            case 'BR': currSquare.color = 'A26E59'; break;
           }
 
           $scope.uiBoard[r][c] = currSquare;

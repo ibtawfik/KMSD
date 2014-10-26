@@ -9,6 +9,7 @@ html, body {
   height: 240px;
   overflow: hidden;
   position: fixed!important;
+  background: #D8D3AB;
 }
 
 .cell {
@@ -70,7 +71,7 @@ Piece Colors
 .OR {
   width: 20px;
   height: 20px;
-  background: orange;
+  background: #FFA858;
   position: relative;
   top: 3px;
   left: 3px;
@@ -84,7 +85,7 @@ Piece Colors
 .RE {
   width: 20px;
   height: 20px;
-  background: red;
+  background: #F75E50;
   position: relative;
   top: 3px;
   left: 3px;
@@ -97,7 +98,7 @@ Piece Colors
 .GR {
   width: 20px;
   height: 20px;
-  background: green;
+  background: #84A586;
   position: relative;
   top: 3px;
   left: 3px;
@@ -110,7 +111,7 @@ Piece Colors
 .BR {
   width: 20px;
   height: 20px;
-  background: brown;
+  background: #A26E59;
   position: relative;
   top: 3px;
   left: 3px;
@@ -123,7 +124,7 @@ Piece Colors
 .BL {
   width: 20px;
   height: 20px;
-  background: blue;
+  background: #39455A;
   position: relative;
   top: 3px;
   left: 3px;
@@ -136,7 +137,7 @@ Piece Colors
 .YE {
   width: 20px;
   height: 20px;
-  background: yellow;
+  background: #EAC761;
   position: relative;
   top: 3px;
   left: 3px;
@@ -149,7 +150,7 @@ Piece Colors
 .PU {
   width: 20px;
   height: 20px;
-  background: purple;
+  background: #890E53;
   position: relative;
   top: 3px;
   left: 3px;
@@ -162,7 +163,7 @@ Piece Colors
 .PI {
   width: 20px;
   height: 20px;
-  background: pink;
+  background: #AC768F;
   position: relative;
   top: 3px;
   left: 3px;
