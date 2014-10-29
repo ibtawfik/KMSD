@@ -102,6 +102,7 @@ angular.module('myApp', ['ngDraggable'])
           currSquare.row = r;
           currSquare.col = c;
 
+          //background colors of grids
           switch(gridColor) {
             case 'OR': currSquare.color = 'FFA858'; break;
             case 'BL': currSquare.color = '39455A'; break;
