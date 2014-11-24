@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Kamisado</title>
+  <meta name="description" content="Kamisado game">
+  <meta name="viewport" ontent="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+  <script src="http://yoav-zibin.github.io/emulator/ngDraggable.js"></script>
+
+  <script src="game.js"></script>
+  <script src="gameLogic.js"></script>
+
+  <script src="http://yoav-zibin.github.io/emulator/gameService.js"></script>
+  <script src="http://yoav-zibin.github.io/emulator/messageService.js"></script>
+  <script src="http://yoav-zibin.github.io/emulator/stateService.js"></script>
+  <link rel="stylesheet" type="text/css" href="game.css">
+</head>
+<body ng-cloak ng-controller="Ctrl">
+  <table>
+    <tr ng-repeat="row in uiBoard track by $index">
+      <td ng-repeat="cell in row track by $index"
+        bgcolor="{{cell.color}}"
+        ng-class="{cell: true}"
+        ng-drop="true"
+        ng-drop-success="onDropComplete($data,$event,$parent.$index,$index)">
+        <div ng-drag="cell.isDraggable && isYourTurn" ng-drag-data="cell.id">
+          <div ng-class="{placetaker: true}" ng-style="cell.ngstyle">
+            <div ng-class="{black_player: cell.isPlayer1, white_player: cell.isPlayer0, blink_me: cell.isDraggable && isYourTurn}"
+            ng-show="!cell.isEmpty">
+              <div ng-class="cell.pieceColor" ng-show="!cell.isEmpty">
+              </div>
+            </div>
+          </div>
+        </div>
+      </td> 
+    </tr>
+  </table>
+</body>
+</html>
