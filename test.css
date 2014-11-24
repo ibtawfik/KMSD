@@ -1,8 +1,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  width: 512px;
-  height: 250px;
   overflow: hidden;
   position: fixed!important;
   vertical-align: center;
@@ -14,6 +12,7 @@ a {
 }
 
 .back {
-  align: center;
+  width: 512px;
+  height: 250px;
   background: #D8D3AB;
 }
