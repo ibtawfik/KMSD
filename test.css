@@ -5,9 +5,15 @@ html, body {
   height: 250px;
   overflow: hidden;
   position: fixed!important;
+  vertical-align: center;
 }
 
 a {
   font-size: 70px;
   font-family: "Times New Roman", Times, serif;
+}
+
+back {
+  align: center;
+  background: #D8D3AB;
 }
