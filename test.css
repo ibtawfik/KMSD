@@ -1,18 +1,10 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  position: fixed!important;
-  vertical-align: center;
-}
-
-a {
-  font-size: 70px;
-  font-family: "Times New Roman", Times, serif;
-}
-
 .back {
   width: 512px;
   height: 250px;
   background: #D8D3AB;
+}
+
+.text {
+  font-size: 70px;
+  font-family: "Times New Roman", Times, serif;
 }
