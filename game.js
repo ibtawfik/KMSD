@@ -3,11 +3,8 @@
 angular.module('myApp', ['ngDraggable'])
   .controller('Ctrl', function (
       $window, $scope, $log, $timeout,
-      gameService, gameLogic) {
-
-    //load audio
-    var moveAudio = new Audio('audio/move.wav');
-    moveAudio.load();
+      gameService, gameLogic,resizeGameAreaService) {
+      resizeGameAreaService.setWidthToHeight(1);
 
     function sendComputerMove() {
       var r = $scope.state.delta.row,
@@ -55,7 +52,7 @@ angular.module('myApp', ['ngDraggable'])
                          {OR: [0, 0], BL: [0, 1], PU: [0, 2], PI: [0, 3], YE: [0, 4], RE: [0, 5], GR: [0, 6], BR: [0, 7]}];
       }
       else {
-        moveAudio.play();
+
       }
 
       //state after the previous move, will be used in this createMove
