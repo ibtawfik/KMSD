@@ -21,6 +21,83 @@
   <link rel="stylesheet" type="text/css" href="game.css">
 </head>
 <body ng-cloak ng-controller="Ctrl">
+<div style="position:absolute; bottom:5px; left: 5px">
+    <span ng-click="isHelpModalShown = true"
+          class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+</div>
+
+<div class="overlayModal" ng-show="isHelpModalShown" aria-hidden="true">
+    <div class="modal-backdrop in"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="isHelpModalShown = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Rules of KMSD
+                </h4>
+            </div>
+            <div class="modal-body">
+                <carousel style="height: 150px">
+                    <slide>
+                        <table>
+                            <tr>
+                                <td>
+                                    The goal of the game is to move your pieces across and off the board. The first player to get a piece in their opponent starting position wins.
+                                </td>
+                                <td>
+                                    <img src="imgs/Help1.png"style="height:150px;">
+                                </td>
+                            </tr>
+                        </table>
+                    </slide>
+                    <slide>
+                        <table>
+                            <tr>
+                                <td>
+                                    The first player can move any piece. Pieces can move diagonally.
+                                </td>
+                                <td>
+                                    <img src="imgs/Help2.png" style="height:150px;">
+                                </td>
+                            </tr>
+                        </table>
+                    </slide>
+                    <slide>
+                        <table>
+                            <tr>
+                                <td>
+                                   Or pieces can move in a straight line.
+                                </td>
+                                <td>
+                                    <img src="imgs/Help3.png" style="height:150px;">
+                                </td>
+                            </tr>
+                        </table>
+                    </slide>
+                    <slide>
+                        <table>
+                            <tr>
+                                <td>
+                                After the first move you can only moving from the same color on the board that your opponent moved to. So if my opponent landed on an orange square I can only move a piece from an orange square.
+                                </td>
+                                <td>
+                                    <img src="imgs/Help3.png" style="height:150px;">
+                                </td>
+                            </tr>
+                        </table>
+                    </slide>
+                </carousel>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="isHelpModalShown = false">
+                    {{"CLOSE"}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div id="gameArea">
 <table style="position:absolute; top:0%; left:0; width:100%; height:100%;">
     <tr ng-repeat="row in uiBoard track by $index">
