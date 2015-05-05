@@ -25,7 +25,30 @@ angular.module('myApp', ['ngDraggable'])
       $timeout(function(){gameService.makeMove(move);},500);
     }
 
-    var gridColors = [
+
+    $scope.getWidth = function(){
+        var gameArea = document.getElementById("gameArea");
+        return gameArea.style.width * .125;
+    };
+
+    $scope.getHeight = function(){
+        var gameArea = document.getElementById("gameArea");
+        return gameArea.style.height * .125;
+    };
+
+    $scope.getTop = function(row){
+
+        var gameArea = document.getElementById("gameArea");
+        return gameArea.style.height * .125 * row;
+    };
+
+    $scope.getLeft = function(column){
+        var gameArea = document.getElementById("gameArea");
+        return gameArea.style.width * .125 * column;
+    };
+
+
+        var gridColors = [
       [ 'OR', 'BL', 'PU', 'PI', 'YE', 'RE', 'GR', 'BR' ],
       [ 'RE', 'OR', 'PI', 'GR', 'BL', 'YE', 'BR', 'PU' ],
       [ 'GR', 'PI', 'OR', 'RE', 'PU', 'BR', 'YE', 'BL' ],
