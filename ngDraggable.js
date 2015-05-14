@@ -150,7 +150,7 @@ angular.module("ngDraggable", [])
                     addListener(document, _moveEvents, onmove);
                     //$document.on(_releaseEvents, onrelease);
                     addListener(document, _releaseEvents, onrelease);
-
+                    console.log(element[0].style.height);
                     $rootScope.$broadcast('draggable:start', {x:_mx, y:_my, tx:_tx, ty:_ty, event:evt, element:element, data:_data});
 
                 };

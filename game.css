@@ -5,8 +5,8 @@ table {
 html, body {
     margin: 0;
     padding: 0;
-    /*width: 240px;*/
-    /*height: 240px;*/
+    width: 240px;
+    height: 240px;
     overflow: hidden;
     /*position: fixed!important;*/
     background: #D8D3AB;
@@ -20,45 +20,38 @@ html, body {
     padding: 0px;
 }
 
-.placetaker {
-    width: 12.5%;
-    height: 12.5%;
-
-    position: relative;
-
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-}
 
 /*****************************
 Player Indicators
 *****************************/
 
 .black_player {
-    width: 26px;
-    height: 26px;
+    width: 65%;
+    height: 65%;
     background: #342E16;
     position: relative;
     top: 50%;
-    left: 50%;
+    left: 20%;
+    
 
-    -webkit-border-radius: 13px;
-    -moz-border-radius: 13px;
-    border-radius: 13px;
+
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 
 .white_player {
-    width: 26px;
-    height: 26px;
+    width: 65%;
+    height: 65%;
     background: #FBF9D2;
     position: relative;
-    top: 2px;
-    left: 2px;
+    top: 50%;
+    left: 20%;
 
-    -webkit-border-radius: 13px;
-    -moz-border-radius: 13px;
-    border-radius: 13px;
+
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 
 /*****************************
@@ -174,13 +167,13 @@ Piece Colors
 Animations
 *****************************/
 
-@-webkit-keyframes moveAnimation {
-    from {top: 0px; left: 0px;}
-}
+/*@-webkit-keyframes moveAnimation {*/
+    /*from {top: 0px; left: 0px;}*/
+/*}*/
 
-@keyframes moveAnimation {
-    from {top: 0px; left: 0px;}
-}
+/*@keyframes moveAnimation {*/
+    /*from {top: 0px; left: 0px;}*/
+/*}*/
 
 .blink_me {
     -webkit-animation-name: blinker;
