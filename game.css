@@ -59,108 +59,100 @@ Piece Colors
 *****************************/
 
 .OR {
-    width: 20px;
-    height: 20px;
+    width: 65%;
+    height: 65%;
     background: #FFA858;
     position: relative;
-    top: 3px;
-    left: 3px;
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    margin: 0 auto;
+    top:17%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 
 }
 
 .RE {
-    width: 20px;
-    height: 20px;
+    width: 65%;
+    height: 65%;
     background: #F75E50;
     position: relative;
-    top: 3px;
-    left: 3px;
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    margin: 0 auto;
+    top:17%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 
 .GR {
-    width: 20px;
-    height: 20px;
+    width: 65%;
+    height: 65%;
     background: #84A586;
     position: relative;
-    top: 3px;
-    left: 3px;
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    margin: 0 auto;
+    top:17%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 
 .BR {
-    width: 20px;
-    height: 20px;
+    width: 65%;
+    height: 65%;
     background: #A26E59;
     position: relative;
-    top: 3px;
-    left: 3px;
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    margin: 0 auto;
+    top:17%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 
 .BL {
-    width: 20px;
-    height: 20px;
+    width: 65%;
+    height: 65%;
     background: #39455A;
     position: relative;
-    top: 3px;
-    left: 3px;
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    margin: 0 auto;
+    top:17%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 
 .YE {
-    width: 20px;
-    height: 20px;
+    width: 65%;
+    height: 65%;
     background: #EAC761;
     position: relative;
-    top: 3px;
-    left: 3px;
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    margin: 0 auto;
+    top:17%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 
 .PU {
-    width: 20px;
-    height: 20px;
+    width: 65%;
+    height: 65%;
     background: #890E53;
     position: relative;
-    top: 3px;
-    left: 3px;
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    margin: 0 auto;
+    top:17%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 
 .PI {
-    width: 20px;
-    height: 20px;
+    width: 65%;
+    height: 65%;
     background: #AC768F;
     position: relative;
-    top: 3px;
-    left: 3px;
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    margin: 0 auto;
+    top:17%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 
 /*****************************
