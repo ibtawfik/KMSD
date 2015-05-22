@@ -201,6 +201,8 @@ angular.module("ngDraggable", [])
                     dom.style.position = '';
                     dom.style.zIndex = '';
                     dom.style.margin = '';
+                    dom.style.width = '';
+                    dom.style.height = '';
                 };
                 var moveElement = function(x,y) {
 
@@ -211,6 +213,8 @@ angular.module("ngDraggable", [])
                     dom.style.position = "fixed";
                     dom.style.zIndex = 99999;
                     dom.style.margin = 0;
+                    dom.style.width = CIRCLE_WIDTH + 'px';
+                    dom.style.height = CIRCLE_HEIGHT + 'px';
                 };
                 initialize();
             }
@@ -376,8 +380,11 @@ angular.module("ngDraggable", [])
                 var moveElement = function(x,y) {
                     //element.css({left:x,top:y, position:'fixed', 'z-index':99999, visibility:'visible'});
                     var dom = element[0];
+
                     dom.style.left = x + "x";
                     dom.style.top = y + "y";
+                    dom.style.width = CIRCLE_WIDTH + 'px';
+                    dom.style.height = CIRCLE_HEIGHT + 'px';
                     dom.style.position = "fixed";
                     dom.style.zIndex = 99999;
                     dom.style.visibility = 'visible';

@@ -30,10 +30,8 @@ Player Indicators
     height: 65%;
     background: #342E16;
     position: relative;
-    top: 50%;
-    left: 20%;
-    
-
+    vertical-align: middle;
+    margin: 0 auto;
 
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -45,8 +43,8 @@ Player Indicators
     height: 65%;
     background: #FBF9D2;
     position: relative;
-    top: 50%;
-    left: 20%;
+    vertical-align: middle;
+    margin: 0 auto;
 
 
     -webkit-border-radius: 50%;
@@ -149,7 +147,7 @@ Piece Colors
     background: #AC768F;
     position: relative;
     margin: 0 auto;
-    top:17%;
+    top:20%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;

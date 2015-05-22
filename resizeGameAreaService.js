@@ -73,6 +73,9 @@ angular.module('myApp')
                 gameArea.style.position = "absolute";
                 gameArea.style.left = ((originalWindowWidth - windowWidth)/2) + 'px';
                 gameArea.style.top = ((originalWindowHeight - windowHeight)/2) + 'px';
+
+                window.CIRCLE_WIDTH = windowWidth * 1/8 * .65;
+                window.CIRCLE_HEIGHT = windowHeight * 1/8 * .65;
             }
 
             $window.onresize = rescale;
